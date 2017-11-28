@@ -7,7 +7,7 @@ describe('entities.sagas.ensure', () => {
   let next
   let payload
   const requestedIds = f.createList('Contact', 211).map((contact) => contact.id).toSet()
-  before(() => {
+  beforeAll(() => {
     // important: the generator must be instantiated within
     // an it, before, or beforeEach block, NOT OUTSIDE
     payload = {
