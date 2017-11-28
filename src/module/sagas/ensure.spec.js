@@ -1,12 +1,16 @@
-import { List } from 'immutable'
-import f from 'lib/api/factories'
+import { List, Record } from 'immutable'
 import ensure from './ensure'
+
+const ContactRecord = Record({id: null})
+const contactList = List((new Array(211)).fill(true).map((t, i) => {
+  return ContactRecord({id: `contact_${i}`})
+}))
 
 describe('entities.sagas.ensure', () => {
   let generator
   let next
   let payload
-  const requestedIds = f.createList('Contact', 211).map((contact) => contact.id).toSet()
+  const requestedIds = contactList.map((contact) => contact.id).toSet()
   beforeAll(() => {
     // important: the generator must be instantiated within
     // an it, before, or beforeEach block, NOT OUTSIDE
