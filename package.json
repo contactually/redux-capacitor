@@ -9,6 +9,7 @@
     "build:clean": "rm -rf ./lib",
     "build:compile": "babel src/ -d lib/ --ignore *.spec.js",
     "build": "yarn build:clean && yarn build:compile && yarn build:package",
+    "build:local:link": "yarn build && cd lib && npm link",
     "test": "node scripts/test.js --env=jsdom",
     "flow:check": "./node_modules/.bin/flow check",
     "hook": "bash ./hooks/install",
