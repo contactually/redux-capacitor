@@ -10,6 +10,7 @@
     "build:compile": "babel src/ -d lib/ --ignore *.spec.js",
     "build": "yarn build:clean && yarn build:compile && yarn build:package",
     "test": "node scripts/test.js --env=jsdom",
+    "hook": "bash ./hooks/install",
     "dist": "yarn version && yarn build && cd ./lib && npm publish"
   },
   "devDependencies": {

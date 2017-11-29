@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+rm -rf ./.git/hooks
+mkdir -p ./.git/hooks
+echo -e "#!/usr/bin/env bash\nbash ./hooks/pre-commit" > ./.git/hooks/pre-commit
+chmod 777 ./.git/hooks/pre-commit
