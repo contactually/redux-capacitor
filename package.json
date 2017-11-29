@@ -47,7 +47,9 @@
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,mjs}"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/test-setup.js",
     "setupFiles": [
+      "<rootDir>/config/jest/test-setup.js",
       "<rootDir>/config/polyfills.js"
     ],
     "testMatch": [

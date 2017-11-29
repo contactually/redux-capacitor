@@ -1,5 +1,6 @@
-import f from '../factories'
 import { fromJS, Set } from 'immutable'
+
+import { EntitiesConfig } from '../index'
 
 import MODULE_NAME from './identity'
 import selectors from './selectors'
@@ -13,16 +14,36 @@ const getRecomputationCounter = (selector, baseState) => (...args) => {
   return selector.recomputations()
 }
 
+let idIterator = 0
+const createEmailAddress = (attrs) => {
+  return EntitiesConfig.records.EmailAddress({
+    ...attrs,
+    id: `contact_identity_${idIterator++}`
+  })
+}
+const createContact = (attrs) => {
+  return EntitiesConfig.records.Contact({
+    ...attrs,
+    id: `contact_${idIterator++}`
+  })
+}
+const createTask = (attrs) => {
+  return EntitiesConfig.records.Task({
+    ...attrs,
+    id: `task_${idIterator++}`
+  })
+}
+
 describe('selectors', () => {
-  const emailAddress1 = f.create('EmailAddress')
-  const emailAddress2 = f.create('EmailAddress')
-  const contact = f.create('Contact', {
+  const emailAddress1 = createEmailAddress({})
+  const emailAddress2 = createEmailAddress({})
+  const contact = createContact({
     emailAddresses: fromJS([emailAddress1.id, emailAddress2.id])
   })
-  const contact2 = f.create('Contact', {
+  const contact2 = createContact({
     emailAddresses: fromJS([emailAddress1.id, emailAddress2.id])
   })
-  const task = f.create('Task', {
+  const task = createTask({
     title: 'Do something',
     contact: contact.id
   })
@@ -54,74 +75,74 @@ describe('selectors', () => {
   })
 
   describe('containers', () => {
-    it('returns containers', () => {
-      expect(selectors.containers(state)).to.eql(state.getIn([MODULE_NAME, 'containers']))
+    test('returns containers', () => {
+      expect(selectors.containers(state)).toMatchObject(state.getIn([MODULE_NAME, 'containers']))
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const stateWithUnrelatedChange = state.setIn([MODULE_NAME, 'unrelated-key'], true)
       const stateWithRelatedChange = state.setIn([MODULE_NAME, 'containers', 'something'], true)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selectors.containers(state) === selectors.containers(state)).to.be.true
-      expect(selectors.containers(state) === selectors.containers(stateWithUnrelatedChange)).to.be.true
-      expect(selectors.containers(state)).to.not.eql(selectors.containers(stateWithRelatedChange))
+      expect(selectors.containers(state) === selectors.containers(state)).toBeTruthy()
+      expect(selectors.containers(state) === selectors.containers(stateWithUnrelatedChange)).toBeTruthy()
+      expect(selectors.containers(state)).not.toMatchObject(selectors.containers(stateWithRelatedChange))
     })
   })
 
   describe('entities', () => {
-    it('returns entities', () => {
-      expect(selectors.entities(state)).to.eql(state.getIn([MODULE_NAME, 'entities']))
+    test('returns entities', () => {
+      expect(selectors.entities(state)).toMatchObject(state.getIn([MODULE_NAME, 'entities']))
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const stateWithUnrelatedChange = state.setIn([MODULE_NAME, 'unrelated-key'], true)
       const stateWithRelatedChange = state.setIn([MODULE_NAME, 'entities', 'something'], true)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selectors.entities(state) === selectors.entities(state)).to.be.true
-      expect(selectors.entities(state) === selectors.entities(stateWithUnrelatedChange)).to.be.true
-      expect(selectors.entities(state)).to.not.eql(selectors.entities(stateWithRelatedChange))
+      expect(selectors.entities(state) === selectors.entities(state)).toBeTruthy()
+      expect(selectors.entities(state) === selectors.entities(stateWithUnrelatedChange)).toBeTruthy()
+      expect(selectors.entities(state)).not.toMatchObject(selectors.entities(stateWithRelatedChange))
     })
   })
 
   describe('requests', () => {
-    it('returns requests', () => {
-      expect(selectors.requests(state)).to.eql(state.getIn([MODULE_NAME, 'requests']))
+    test('returns requests', () => {
+      expect(selectors.requests(state)).toMatchObject(state.getIn([MODULE_NAME, 'requests']))
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const stateWithUnrelatedChange = state.setIn([MODULE_NAME, 'unrelated-key'], true)
       const stateWithRelatedChange = state.setIn([MODULE_NAME, 'requests', 'something'], true)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selectors.requests(state) === selectors.requests(state)).to.be.true
-      expect(selectors.requests(state) === selectors.requests(stateWithUnrelatedChange)).to.be.true
-      expect(selectors.requests(state)).to.not.eql(selectors.requests(stateWithRelatedChange))
+      expect(selectors.requests(state) === selectors.requests(state)).toBeTruthy()
+      expect(selectors.requests(state) === selectors.requests(stateWithUnrelatedChange)).toBeTruthy()
+      expect(selectors.requests(state)).not.toMatchObject(selectors.requests(stateWithRelatedChange))
     })
   })
 
   describe('containerState', () => {
-    it('returns container state', () => {
+    test('returns container state', () => {
       const selector = selectors.containerState(contactIdent)
 
-      expect(selector(state)).to.eql(state.getIn([MODULE_NAME, 'containers', contactIdent]))
+      expect(selector(state)).toMatchObject(state.getIn([MODULE_NAME, 'containers', contactIdent]))
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const selector = selectors.containerState(contactIdent)
 
       const stateWithUnrelatedChange = state.setIn([MODULE_NAME, 'containers', 'something'], true)
       const stateWithRelatedChange = state.setIn([MODULE_NAME, 'containers', contactIdent, 'something'], true)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selector(state) === selector(state)).to.be.true
-      expect(selector(state) === selector(stateWithUnrelatedChange)).to.be.true
-      expect(selector(state)).to.not.eql(selector(stateWithRelatedChange))
+      expect(selector(state) === selector(state)).toBeTruthy()
+      expect(selector(state) === selector(stateWithUnrelatedChange)).toBeTruthy()
+      expect(selector(state)).not.toMatchObject(selector(stateWithRelatedChange))
     })
   })
 
@@ -130,50 +151,50 @@ describe('selectors', () => {
     const stateWithUnrelatedChange2 = state.setIn([MODULE_NAME, 'entities', 'contact', 'xyz', 'firstName'], 'Bob')
     const stateWithRelatedChange = state.setIn([MODULE_NAME, 'entities', 'contact', contact.id, 'firstName'], 'John')
 
-    it('returns deeply denormalized items', () => {
+    test('returns deeply denormalized items', () => {
       const selector = selectors.containerItems(contactIdent)
 
       const selectedContact = selector(state).first()
 
-      expect(selectedContact.firstName).to.eql(contact.firstName)
-      expect(selectedContact.emailAddresses.first().address).to.eql(emailAddress1.address)
+      expect(selectedContact.firstName).toEqual(contact.firstName)
+      expect(selectedContact.emailAddresses.first().address).toEqual(emailAddress1.address)
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const selector = selectors.containerItems(contactIdent)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selector(state) === selector(state)).to.be.true
-      expect(selector(state) === selector(stateWithUnrelatedChange1)).to.be.true
-      expect(selector(state) === selector(stateWithUnrelatedChange2)).to.be.true
-      expect(selector(state)).to.not.eql(selector(stateWithRelatedChange))
+      expect(selector(state) === selector(state)).toBeTruthy()
+      expect(selector(state) === selector(stateWithUnrelatedChange1)).toBeTruthy()
+      expect(selector(state) === selector(stateWithUnrelatedChange2)).toBeTruthy()
+      expect(selector(state)).not.toMatchObject(selector(stateWithRelatedChange))
     })
 
-    it('does not recompute unnecessarily', () => {
+    test('does not recompute unnecessarily', () => {
       const selector = selectors.containerItems(contactIdent)
       const computationsFor = getRecomputationCounter(selector, state)
 
-      expect(computationsFor(state)).to.equal(0)
-      expect(computationsFor(stateWithUnrelatedChange1)).to.equal(0)
-      expect(computationsFor(stateWithUnrelatedChange2)).to.equal(1)
-      expect(computationsFor(stateWithRelatedChange)).to.equal(1)
+      expect(computationsFor(state)).toEqual(0)
+      expect(computationsFor(stateWithUnrelatedChange1)).toEqual(0)
+      expect(computationsFor(stateWithUnrelatedChange2)).toEqual(1)
+      expect(computationsFor(stateWithRelatedChange)).toEqual(1)
     })
 
-    context('when an item within the collection changes', () => {
+    describe('when an item within the collection changes', () => {
       const selector = selectors.containerItems(contactIdent)
       const stateWithContact2Change = state.setIn(
         [MODULE_NAME, 'entities', 'contact', contact2.id, 'firstName'],
         'John'
       )
 
-      it('maintains referential equality with the unchanged item', () => {
+      test('maintains referential equality with the unchanged item', () => {
         const changedItems = selector(stateWithContact2Change)
         const originalItems = selector(state)
 
-        expect(selector(state) === selector(state)).to.be.true
-        expect(originalItems.get(0) === changedItems.get(0)).to.be.true
-        expect(originalItems.get(1) === changedItems.get(1)).to.be.false
+        expect(selector(state) === selector(state)).toBeTruthy()
+        expect(originalItems.get(0) === changedItems.get(0)).toBeTruthy()
+        expect(originalItems.get(1) === changedItems.get(1)).not.toBeTruthy()
       })
     })
   })
@@ -182,29 +203,29 @@ describe('selectors', () => {
     const stateWithUnrelatedChange = state.setIn([MODULE_NAME, 'entities', 'contact', 'xyz'], {})
     const stateWithRelatedChange = state.removeIn([MODULE_NAME, 'entities', 'contact', contact.id])
 
-    it('returns deeply denormalized items', () => {
+    test('returns deeply denormalized items', () => {
       const selector = selectors.containerMissingIds(contactIdent)
 
-      expect(selector(state)).to.eql(Set())
+      expect(selector(state)).toMatchObject(Set())
     })
 
-    it('maintains referential equality', () => {
+    test('maintains referential equality', () => {
       const selector = selectors.containerMissingIds(contactIdent)
 
-      // NOTE: `.to.equal` is supposed to check referential equality but
+      // NOTE: `.toEqual` is supposed to check referential equality but
       // doesn't for some reason so we need to write the expectations this way.
-      expect(selector(state) === selector(state)).to.be.true
-      expect(selector(state) === selector(stateWithUnrelatedChange)).to.be.true
-      expect(selector(state)).to.not.eql(selector(stateWithRelatedChange))
+      expect(selector(state) === selector(state)).toBeTruthy()
+      expect(selector(state) === selector(stateWithUnrelatedChange)).toBeTruthy()
+      expect(selector(state)).not.toMatchObject(selector(stateWithRelatedChange))
     })
 
-    it('does not recompute unnecessarily', () => {
+    test('does not recompute unnecessarily', () => {
       const selector = selectors.containerMissingIds(contactIdent)
       const computationsFor = getRecomputationCounter(selector, state)
 
-      expect(computationsFor(state)).to.equal(0)
-      expect(computationsFor(stateWithUnrelatedChange)).to.equal(0)
-      expect(computationsFor(stateWithRelatedChange)).to.equal(1)
+      expect(computationsFor(state)).toEqual(0)
+      expect(computationsFor(stateWithUnrelatedChange)).toEqual(0)
+      expect(computationsFor(stateWithRelatedChange)).toEqual(1)
     })
   })
 })
