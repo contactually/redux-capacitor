@@ -10,5 +10,6 @@ git diff-index -p --cached --diff-filter=ACMRTUXB -G"${FORBIDDEN}" HEAD | \
   GREP_COLOR='37;41' grep --color -E $FORBIDDEN && echo "\nError: Found some debug-looking code. Please remove it before committing (use \"git commit --no-verify...\" to skip).\n" && exit 1
 
 yarn test -o
+yarn flow:check
 
 exit 0
