@@ -1,44 +1,47 @@
 import { delay } from 'redux-saga'
 import { call, put } from 'redux-saga/effects'
 
-import actions from 'lib/api/module/actions'
+import actions from '../actions'
 import updateFilters from './updateFilters'
 import performAction from './performAction'
 
 describe('entities.sagas.updateFilters', () => {
   const containerId = 'contactsIndex-contact'
 
-  context('with default params', () => {
+  describe('with default params', () => {
     const payload = {
       containerId
     }
     const generator = updateFilters(payload)
 
-    it('generates a put effect to merge filters and adds a filter for page 1 if no page filter is given', () => {
-      const expectedEffect = put(actions.D.mergeFilters({
-        containerId,
-        filters: { page: 1 }
-      }))
+    test(
+      'generates a put effect to merge filters and adds a filter for page 1 if no page filter is given',
+      () => {
+        const expectedEffect = put(actions.D.mergeFilters({
+          containerId,
+          filters: { page: 1 }
+        }))
 
-      expect(generator.next().value).to.eql(expectedEffect)
-    })
+        expect(generator.next().value).toMatchObject(expectedEffect)
+      }
+    )
 
-    it('debounces consecutive API requests', () => {
+    test('debounces consecutive API requests', () => {
       const expectedEffect = call(delay, 400)
-      expect(generator.next().value).to.eql(expectedEffect)
+      expect(generator.next().value).toMatchObject(expectedEffect)
     })
 
-    it('generates a blocking call effect to perform the API request', () => {
+    test('generates a blocking call effect to perform the API request', () => {
       const expectedEffect = call(performAction, {
         containerId,
         action: 'list'
       })
 
-      expect(generator.next().value).to.eql(expectedEffect)
+      expect(generator.next().value).toMatchObject(expectedEffect)
     })
   })
 
-  context('with custom filters and no debouncing', () => {
+  describe('with custom filters and no debouncing', () => {
     const payload = {
       containerId,
       filters: { team_search: true, page: 2 },
@@ -46,26 +49,32 @@ describe('entities.sagas.updateFilters', () => {
     }
     const generator = updateFilters(payload)
 
-    it('generates a put effect to merge the given filters for the container', () => {
-      const expectedEffect = put(actions.D.mergeFilters({
-        containerId,
-        filters: { team_search: true, page: 2 }
-      }))
+    test(
+      'generates a put effect to merge the given filters for the container',
+      () => {
+        const expectedEffect = put(actions.D.mergeFilters({
+          containerId,
+          filters: { team_search: true, page: 2 }
+        }))
 
-      expect(generator.next().value).to.eql(expectedEffect)
-    })
+        expect(generator.next().value).toMatchObject(expectedEffect)
+      }
+    )
 
-    it('skips debouncing and generates a blocking call effect to perform the API request', () => {
-      const expectedEffect = call(performAction, {
-        containerId,
-        action: 'list'
-      })
+    test(
+      'skips debouncing and generates a blocking call effect to perform the API request',
+      () => {
+        const expectedEffect = call(performAction, {
+          containerId,
+          action: 'list'
+        })
 
-      expect(generator.next().value).to.eql(expectedEffect)
-    })
+        expect(generator.next().value).toMatchObject(expectedEffect)
+      }
+    )
   })
 
-  context('with resetFilters: true', () => {
+  describe('with resetFilters: true', () => {
     const payload = {
       containerId,
       filters: { team_search: true, page: 2 },
@@ -73,17 +82,17 @@ describe('entities.sagas.updateFilters', () => {
     }
     const generator = updateFilters(payload)
 
-    it('resets the filters to the passed ones', () => {
+    test('resets the filters to the passed ones', () => {
       const expectedEffect = put(actions.D.setFilters({
         containerId,
         filters: { team_search: true, page: 2 }
       }))
 
-      expect(generator.next().value).to.eql(expectedEffect)
+      expect(generator.next().value).toMatchObject(expectedEffect)
     })
   })
 
-  context('with resetContainer: true', () => {
+  describe('with resetContainer: true', () => {
     const payload = {
       containerId,
       filters: { team_search: true, page: 2 },
@@ -91,12 +100,12 @@ describe('entities.sagas.updateFilters', () => {
     }
     const generator = updateFilters(payload)
 
-    it('resets the container', () => {
+    test('resets the container', () => {
       const expectedEffect = put(actions.D.resetContainerData({
         containerId
       }))
 
-      expect(generator.next().value).to.eql(expectedEffect)
+      expect(generator.next().value).toMatchObject(expectedEffect)
     })
   })
 })

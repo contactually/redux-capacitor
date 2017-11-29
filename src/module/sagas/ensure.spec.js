@@ -23,17 +23,17 @@ describe('entities.sagas.ensure', () => {
     generator = ensure(payload)
   })
 
-  it('tries to fetch existing entities', () => {
+  test('tries to fetch existing entities', () => {
     generator.next() // call selectEntityItems
   })
 
-  it('yields 5 separate requests to get 211 contacts', () => {
+  test('yields 5 separate requests to get 211 contacts', () => {
     next = generator.next(new List())
-    expect(next.value.length).to.eq(5)
-    expect(next.value[0].CALL.args[0].params.id).to.eq(requestedIds.slice(0, 50))
-    expect(next.value[1].CALL.args[0].params.id).to.eq(requestedIds.slice(50, 100))
-    expect(next.value[2].CALL.args[0].params.id).to.eq(requestedIds.slice(100, 150))
-    expect(next.value[3].CALL.args[0].params.id).to.eq(requestedIds.slice(150, 200))
-    expect(next.value[4].CALL.args[0].params.id).to.eq(requestedIds.slice(200, 211))
+    expect(next.value.length).toEqual(5)
+    expect(next.value[0].CALL.args[0].params.id).toEqual(requestedIds.slice(0, 50))
+    expect(next.value[1].CALL.args[0].params.id).toEqual(requestedIds.slice(50, 100))
+    expect(next.value[2].CALL.args[0].params.id).toEqual(requestedIds.slice(100, 150))
+    expect(next.value[3].CALL.args[0].params.id).toEqual(requestedIds.slice(150, 200))
+    expect(next.value[4].CALL.args[0].params.id).toEqual(requestedIds.slice(200, 211))
   })
 })

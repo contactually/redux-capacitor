@@ -1,7 +1,6 @@
 import { dependentEntityKeys, entitiesToRecords } from './records'
-
-// todo need to define schemas here
-const schemas = {}
+import { EntitiesConfig } from './index'
+const { schemas } = EntitiesConfig
 
 describe('Records', () => {
   describe('entitiesToRecords', () => {
@@ -17,36 +16,24 @@ describe('Records', () => {
     const entityRecords = entitiesToRecords(input)
     const contacts = entityRecords.get('contact')
 
-    it('should be able to lookup entity by id and acccess properties', () => {
-      expect(contacts.get('1').id).to.equal(1)
-      expect(contacts.get('1').firstName).to.equal('Jim')
+    test('should be able to lookup entity by id and acccess properties', () => {
+      expect(contacts.get('1').id).toEqual(1)
+      expect(contacts.get('1').firstName).toEqual('Jim')
     })
   })
 
   describe('dependentEntityKeys', () => {
-    it('includes nested schemas', () => {
-      const schema = schemas.task
+    test('includes nested schemas', () => {
+      const schema = schemas.contact
       const expectedKeys = [
-        'task',
-        'contact',
-        'contactCustomField',
-        'customField',
-        'company',
-        'location',
-        'tag',
-        'address',
         'bucket',
         'bucketPermission',
-        'emailAddress',
-        'socialMediaProfile',
-        'website',
-        'phoneNumber',
-        'leadPool',
-        'leadPoolMembership',
-        'user'
+        'contact',
+        'user',
+        'emailAddress'
       ].sort()
 
-      expect(dependentEntityKeys(schema).sort()).to.eql(expectedKeys)
+      expect(dependentEntityKeys(schema).sort()).toMatchObject(expectedKeys)
     })
   })
 })
