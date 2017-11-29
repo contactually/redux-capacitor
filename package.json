@@ -1,14 +1,16 @@
 {
-  "name": "entities",
-  "version": "0.1.0",
-  "main": "lib/index.js",
+  "name": "@contactually/entities",
+  "version": "0.1.2",
+  "main": "index.js",
   "author": "austin@contactually.com",
   "license": "MIT",
   "scripts": {
+    "build:package": "cp ./package.json ./lib",
     "build:clean": "rm -rf ./lib",
     "build:compile": "babel src/ -d lib/ --ignore *.spec.js",
-    "build": "yarn build:clean && yarn build:compile",
-    "test": "node scripts/test.js --env=jsdom"
+    "build": "yarn build:clean && yarn build:compile && build:package",
+    "test": "node scripts/test.js --env=jsdom",
+    "dist": "yarn version && yarn build && cd ./lib && npm publish"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
