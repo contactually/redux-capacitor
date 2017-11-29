@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+echo "Running pre-commit hook"
+
+# Do not allow commits with debug statements or git
+FILES_PATTERN='\.(js)(\..+)?$'
+FORBIDDEN="\b(console\.debug|debug|console\.log|debugger|<<<<<<<|>>>>>>>)\b"
+git diff-index -p --cached --diff-filter=ACMRTUXB -G"${FORBIDDEN}" HEAD | \
+  grep "^+[^+]" | \
+  GREP_COLOR='37;41' grep --color -E $FORBIDDEN && echo "\nError: Found some debug-looking code. Please remove it before committing (use \"git commit --no-verify...\" to skip).\n" && exit 1
+
+yarn test -o
+
+exit 0
