@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import * as normalizr from 'normalizr'
+import { normalize } from 'normalizr'
 
 import { mergeKey } from '../utils'
 
@@ -40,7 +40,7 @@ const normalizeResponse = (givenResponse, schemaType) => {
 
   const cleanData = mergeKey(data, 'extraData')
 
-  const { entities, result } = normalizr.normalize(
+  const { entities, result } = normalize(
     cleanData,
     schema
   )
