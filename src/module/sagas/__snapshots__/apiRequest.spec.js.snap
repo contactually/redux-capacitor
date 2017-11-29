@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`entities.sagas.apiRequest normalizeResponse do 1`] = `
+Object {
+  "data": Object {
+    "buckets": Array [
+      Object {
+        "id": "bucket_123",
+      },
+      Object {
+        "id": "bucket_456",
+      },
+    ],
+    "firstName": "Austin",
+    "id": "contact_123",
+  },
+  "entities": Object {
+    "bucket": Object {
+      "bucket_123": Object {
+        "id": "bucket_123",
+      },
+      "bucket_456": Object {
+        "id": "bucket_456",
+      },
+    },
+    "contact": Object {
+      "contact_123": Object {
+        "buckets": Array [
+          "bucket_123",
+          "bucket_456",
+        ],
+        "firstName": "Austin",
+        "id": "contact_123",
+      },
+    },
+  },
+  "ids": "contact_123",
+  "response": Object {
+    "headers": Object {},
+    "meta": Object {},
+    "status": 200,
+    "statusText": "OK",
+  },
+}
+`;

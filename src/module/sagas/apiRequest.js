@@ -132,3 +132,7 @@ function* apiRequest (payload) {
 }
 
 export default apiRequest
+
+export {
+  normalizeResponse
+}

@@ -11,10 +11,12 @@ EntitiesConfig.setFieldDefinitions({
     emailAddresses: List()
   },
   user: {
-    id: null
+    id: null,
+    email: null
   },
   bucket: {
     id: null,
+    name: null,
     bucketPermission: List()
   },
   bucketPermission: {
