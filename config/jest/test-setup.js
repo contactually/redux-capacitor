@@ -1,4 +1,3 @@
-import { arrayOf } from 'normalizr'
 import { List } from 'immutable'
 import EntitiesConfig, {
   recordsFromFieldDefinitions,
@@ -41,12 +40,12 @@ const fieldDefinitions = {
 const schemas = schemasFromFieldDefinitions(fieldDefinitions)
 
 schemas.contact.define({
-  buckets: arrayOf(schemas.bucket),
+  buckets: [schemas.bucket],
   user: schemas.user,
-  emailAddresses: arrayOf(schemas.emailAddress)
+  emailAddresses: [schemas.emailAddress]
 })
 schemas.bucket.define({
-  bucketPermissions: arrayOf(schemas.bucketPermission)
+  bucketPermissions: [schemas.bucketPermission]
 })
 
 const records = recordsFromFieldDefinitions(fieldDefinitions)

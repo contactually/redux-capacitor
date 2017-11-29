@@ -1,9 +1,7 @@
 /* @flow */
 import * as _ from 'lodash'
 import { Record, fromJS, Map } from 'immutable'
-
-import IterableSchema from 'normalizr/lib/IterableSchema'
-import EntitySchema from 'normalizr/lib/EntitySchema'
+import * as normalizr from 'normalizr'
 
 import type {NormalizedEntityMap} from './module/selectors'
 
@@ -97,8 +95,8 @@ const entitiesToRecords = (normalizedEntityMap: NormalizedEntityMap): Normalized
  * @param {string[]=} keys
  * @returns {string[]}
  */
-const dependentEntityKeys = (schema: EntitySchema, keys: string[] = []): string[] => {
-  const schemaKey = schema.getKey()
+const dependentEntityKeys = (schema: normalizr.schema.Entity, keys: string[] = []): string[] => {
+  const schemaKey = schema.key
 
   if (keys.includes(schemaKey)) {
     return keys
@@ -106,11 +104,11 @@ const dependentEntityKeys = (schema: EntitySchema, keys: string[] = []): string[
 
   keys.push(schemaKey)
 
-  _.each(schema, (value, key) => {
-    if (value instanceof EntitySchema) {
+  _.each(schema.schema, (value, key) => {
+    if (value instanceof normalizr.schema.Entity) {
       dependentEntityKeys(value, keys)
-    } else if (value instanceof IterableSchema) {
-      dependentEntityKeys(value.getItemSchema(), keys)
+    } else if ((value instanceof normalizr.schema.Array) || (value instanceof normalizr.schema.Values)) {
+      dependentEntityKeys(value.schema, keys)
     }
   })
 

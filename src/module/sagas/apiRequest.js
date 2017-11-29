@@ -1,6 +1,6 @@
 import * as _ from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import { arrayOf, normalize } from 'normalizr'
+import * as normalizr from 'normalizr'
 
 import { mergeKey } from '../utils'
 
@@ -35,12 +35,12 @@ const normalizeResponse = (givenResponse, schemaType) => {
   if (!_.isArrayLike(data) && _.startsWith(data.id, 'job_')) return { response }
 
   const schema = _.isArrayLike(data)
-    ? arrayOf(EntitiesConfig.schemas[schemaType])
+    ? new normalizr.schema.Array(EntitiesConfig.schemas[schemaType])
     : EntitiesConfig.schemas[schemaType]
 
   const cleanData = mergeKey(data, 'extraData')
 
-  const { entities, result } = normalize(
+  const { entities, result } = normalizr.normalize(
     cleanData,
     schema
   )

@@ -10,17 +10,13 @@ type FieldDefinitions = {
   }
 }
 
-type SchemaDefinitions = {
-  [entityName: string]: {}
-}
-
 /**
  * Creates a Schema for each of the given record types.
  */
 function schemasFromFieldDefinitions (fieldDefinitions: FieldDefinitions): Schemas {
   const allSchemaTypes = Object.keys(fieldDefinitions)
   return allSchemaTypes.reduce((memo: Schemas, schemaType: string) => {
-    memo[schemaType] = new Schema(schemaType)
+    memo[schemaType] = new normalizr.schema.Entity(schemaType)
     return memo
   }, {})
 }

@@ -44,7 +44,7 @@
     "denormalizr": "^0.4.1",
     "immutable": "^3.8.1",
     "lodash": "^4.17.2",
-    "normalizr": "^2.3.0",
+    "normalizr": "^3.2.4",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

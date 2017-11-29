@@ -2,8 +2,7 @@
 import * as _ from 'lodash'
 import { fromJS, Map, Record, List } from 'immutable'
 import { createSelector } from 'reselect'
-import { arrayOf } from 'normalizr'
-import { denormalize } from 'denormalizr'
+import * as normalizr from 'normalizr'
 
 import MODULE_NAME from './identity'
 import { initialContainerState } from './reducer'
@@ -129,7 +128,7 @@ const requests: ReduxSelector<RequestMap> = createSelector(
 const entityItems: ReduxSelector<List<Record<any>>> = createSelector(
   entities, typeFromProps, idsFromProps,
   (entities, type, ids) => EntitiesConfig.schemas[type]
-    ? denormalize(ids, entities, arrayOf(EntitiesConfig.schemas[type]))
+    ? normalizr.denormalize(ids, new normalizr.schema.Array(EntitiesConfig.schemas[type]), entities)
     : ids
 )
 
@@ -185,9 +184,10 @@ _.memoize((containerId: string) => createShallowResultSelector(
 const containerItems: ContainerSelector<ReduxSelector<List<Record<any>>>> =
 _.memoize((containerId: string) => createItemResultSelector(
   containerEntityMap(containerId), containerIds(containerId), containerType(containerId),
-  (entities, ids, type) => EntitiesConfig.schemas[type]
-    ? denormalize(ids, entities, arrayOf(EntitiesConfig.schemas[type]))
-    : ids
+  (entities, ids, type) =>
+    EntitiesConfig.schemas[type]
+      ? normalizr.denormalize(ids, new normalizr.schema.Array(EntitiesConfig.schemas[type]), entities)
+      : ids
 ))
 
 /**
