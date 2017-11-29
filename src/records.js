@@ -1,5 +1,5 @@
 /* @flow */
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { Record, fromJS, Map } from 'immutable'
 
 import IterableSchema from 'normalizr/lib/IterableSchema'
@@ -10,12 +10,12 @@ import type {NormalizedEntityMap} from './module/selectors'
 import {EntitiesConfig} from './index'
 
 type Records = {
-  [entityName: string]: Record<any>
+  [entityName: string]: Record<{}>
 }
 
 const recordizeProperties = (memo, defaultValue, property) => {
   if (defaultValue && defaultValue.constructor === Object) {
-    const NestedRecord = new Record(_.reduce(defaultValue, recordizeProperties, {}))
+    const NestedRecord = Record(_.reduce(defaultValue, recordizeProperties, {}))
     memo[property] = NestedRecord().mergeDeep(NestedRecord(defaultValue))
   } else {
     memo[property] = defaultValue
@@ -24,12 +24,12 @@ const recordizeProperties = (memo, defaultValue, property) => {
   return memo
 }
 
-const recordsFromFieldDefinitions = (fieldDefinitions) => {
+const recordsFromFieldDefinitions = (fieldDefinitions: any) => {
   return _.reduce(fieldDefinitions, (memo, properties, type) => {
     const className = _.upperFirst(type)
     const recordizedProperties = _.reduce(properties, recordizeProperties, {})
 
-    memo[className] = new Record(recordizedProperties, className)
+    memo[className] = Record(recordizedProperties, className)
 
     return memo
   }, {})
@@ -61,7 +61,7 @@ const recordsFromFieldDefinitions = (fieldDefinitions) => {
  */
 const entitiesToRecords = (normalizedEntityMap: NormalizedEntityMap): NormalizedEntityMap => (
   fromJS(normalizedEntityMap).withMutations(
-    (entities: NormalizedEntityMap) => entities.forEach((entitiesOfType: Map<string, Record<any>>, type: string) => {
+    (entities: NormalizedEntityMap) => entities.forEach((entitiesOfType: Map<string, Record<{}>>, type: string) => {
       const RecordClass = EntitiesConfig.records[_.upperFirst(type)]
 
       if (!RecordClass) return

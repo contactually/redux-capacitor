@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { fromJS, is, List, Map, OrderedMap } from 'immutable'
 import { cancel, take, fork } from 'redux-saga/effects'
 import { createSelectorCreator } from 'reselect'
