@@ -35,7 +35,7 @@ const normalizeResponse = (givenResponse, schemaType) => {
   if (!_.isArrayLike(data) && _.startsWith(data.id, 'job_')) return { response }
 
   const schema = _.isArrayLike(data)
-    ? new normalizr.schema.Array(EntitiesConfig.schemas[schemaType])
+    ? [EntitiesConfig.schemas[schemaType]]
     : EntitiesConfig.schemas[schemaType]
 
   const cleanData = mergeKey(data, 'extraData')

@@ -107,8 +107,8 @@ const dependentEntityKeys = (schema: normalizr.schema.Entity, keys: string[] = [
   _.each(schema.schema, (value, key) => {
     if (value instanceof normalizr.schema.Entity) {
       dependentEntityKeys(value, keys)
-    } else if ((value instanceof normalizr.schema.Array) || (value instanceof normalizr.schema.Values)) {
-      dependentEntityKeys(value.schema, keys)
+    } else if ((value[0] instanceof normalizr.schema.Entity)) {
+      dependentEntityKeys(value[0], keys)
     }
   })
 
