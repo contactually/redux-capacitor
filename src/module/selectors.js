@@ -1,5 +1,5 @@
 /* @flow */
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { fromJS, Map, Record, List } from 'immutable'
 import { createSelector } from 'reselect'
 import { arrayOf } from 'normalizr'

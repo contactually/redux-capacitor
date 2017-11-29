@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import * as _ from 'lodash'
 import { fromJS, OrderedSet } from 'immutable'
 import { call, put, select, take } from 'redux-saga/effects'
 
