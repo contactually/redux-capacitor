@@ -1,4 +1,4 @@
-import {Schema} from 'normalizr'
+import * as normalizr from 'normalizr'
 
 type Schemas = {
   [entityName: string]: Schema
