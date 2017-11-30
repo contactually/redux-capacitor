@@ -1,5 +1,5 @@
 import { dependentEntityKeys, entitiesToRecords } from './records'
-import { EntitiesConfig } from './index'
+import EntitiesConfig from './Config'
 const { schemas } = EntitiesConfig
 
 describe('Records', () => {

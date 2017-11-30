@@ -7,7 +7,7 @@ import EntitySchema from 'normalizr/lib/EntitySchema'
 
 import type {NormalizedEntityMap} from './module/selectors'
 
-import {EntitiesConfig} from './index'
+import EntitiesConfig from './Config'
 
 type Records = {
   [entityName: string]: Record<{}>
@@ -68,6 +68,7 @@ const entitiesToRecords = (normalizedEntityMap: NormalizedEntityMap): Normalized
 
       entitiesOfType.forEach((entity, id) => {
         if (!(entity instanceof RecordClass)) {
+          // $FlowFixMe
           entities.setIn([type, id], RecordClass().mergeDeep(RecordClass(entity)))
         }
       })

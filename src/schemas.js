@@ -17,10 +17,10 @@ type SchemaDefinitions = {
 /**
  * Creates a Schema for each of the given record types.
  */
-function schemasFromFieldDefinitions (fieldDefinitions: FieldDefinitions, schemaDefinitions: SchemaDefinitions): Schemas {
-  const allSchemaTypes = Object.keys(fieldDefinitions).concat(Object.keys(schemaDefinitions))
+function schemasFromFieldDefinitions (fieldDefinitions: FieldDefinitions): Schemas {
+  const allSchemaTypes = Object.keys(fieldDefinitions)
   return allSchemaTypes.reduce((memo: Schemas, schemaType: string) => {
-    memo[schemaType] = new Schema(schemaType, schemaDefinitions[schemaType])
+    memo[schemaType] = new Schema(schemaType)
     return memo
   }, {})
 }

@@ -1,7 +1,4 @@
-import { fromJS, Set } from 'immutable'
 import { normalizeResponse } from './apiRequest'
-
-import { EntitiesConfig } from '../index'
 
 type ApiRequestResponse = {|
   data: Object | Object[],

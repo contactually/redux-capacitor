@@ -6,11 +6,8 @@ import { Provider } from 'react-redux'
 import SagaProvider from './SagaProvider'
 import { mount } from 'enzyme'
 import EntitiesModule from '../module'
-import { EntitiesConfig } from '../index'
+import EntitiesConfig from '../Config'
 import entities, {
-  initializeContainer,
-  handleFiltersChange,
-  handleMissingIdsChange,
   createMapState,
   createMapDispatch
 } from './Entities'
@@ -76,8 +73,10 @@ describe('components.Entities', () => {
   describe('entities', () => {
     let component
     beforeEach(() => {
-      EntitiesConfig.setApiClient(MockApiClient)
-      EntitiesConfig.setConfig(MockConfig)
+      EntitiesConfig.configure({
+        apiClient: new MockApiClient(),
+        Config: MockConfig
+      })
       const sagaMiddleware = createSagaMiddleware()
       const store = createStore(
         EntitiesModule.rootReducer,
