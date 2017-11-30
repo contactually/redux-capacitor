@@ -21,18 +21,11 @@ type Schemas = {
 }
 
 type Records = {
-  [entityType: string]: Record<any>
+  [entityType: string]: Record<{}>
 }
 
 type ApiClient = {
   ['get' | 'put' | 'post' | 'delete' | 'patch']: (uri: string, ApiRequestOptions) => Promise<ApiRequestResponse>
-}
-
-type Config = {
-  asUser: {
-    userId: string,
-    endAsUser: () => void
-  }
 }
 
 type ResourceConfig = {
@@ -55,14 +48,12 @@ class EntitiesConfig {
   schemas: Schemas
   records: Records
   apiClient: ApiClient
-  Config: Config
   resourceConfig: ResourceConfig
 
   configure (config: {|
     schemas: Schemas,
     records: Records,
     apiClient: ApiClient,
-    Config: Config,
     resourceConfig: ResourceConfig
   |}): void {
     Object.assign(this, config)

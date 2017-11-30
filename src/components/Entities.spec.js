@@ -1,5 +1,5 @@
 import createSagaMiddleware from 'redux-saga'
-import { applyMiddleware, compose, createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
 import React from 'react'
 import { fromJS, Set, List, Map } from 'immutable'
 import { Provider } from 'react-redux'
@@ -22,10 +22,6 @@ class MockApiClient {
 
     this.get.mockReturnValue(Promise.resolve({ data: {} }))
   }
-}
-
-const MockConfig = {
-  asUser: null
 }
 
 const stubRequest = (state: {}) => {
@@ -74,8 +70,7 @@ describe('components.Entities', () => {
     let component
     beforeEach(() => {
       EntitiesConfig.configure({
-        apiClient: new MockApiClient(),
-        Config: MockConfig
+        apiClient: new MockApiClient()
       })
       const sagaMiddleware = createSagaMiddleware()
       const store = createStore(
