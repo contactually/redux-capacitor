@@ -1,6 +1,6 @@
 import { fromJS, Set } from 'immutable'
 
-import { EntitiesConfig } from '../index'
+import EntitiesConfig from '../index'
 
 import MODULE_NAME from './identity'
 import selectors from './selectors'

@@ -10,7 +10,7 @@ import { initialContainerState } from './reducer'
 import { createShallowResultSelector, createItemResultSelector } from './utils'
 
 import { dependentEntityKeys } from '../records'
-import { EntitiesConfig } from '../index'
+import EntitiesConfig from '../Config'
 
 type ReduxSelectorOptions = {
   ids?: string[],

@@ -1,10 +1,14 @@
-import entities from './components/Entities'
+import {recordsFromFieldDefinitions} from './records'
+import {schemasFromFieldDefinitions} from './schemas'
+import EntitiesConfig from './Config'
+import entities, { containerPropTypes } from './components/Entities'
 
-import EntitiesSingleton from './Entities'
-
-const EntitiesConfig = new EntitiesSingleton()
+export default EntitiesConfig
 
 export {
-  EntitiesConfig,
-  entities
+  recordsFromFieldDefinitions,
+  schemasFromFieldDefinitions,
+
+  entities,
+  containerPropTypes
 }

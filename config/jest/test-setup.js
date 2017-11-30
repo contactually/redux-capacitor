@@ -1,12 +1,15 @@
 import { arrayOf } from 'normalizr'
 import { List } from 'immutable'
-import { EntitiesConfig } from '../../src/index'
+import EntitiesConfig, {
+  recordsFromFieldDefinitions,
+  schemasFromFieldDefinitions
+} from '../../src/index'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-15'
 
 Enzyme.configure({ adapter: new Adapter() })
 
-EntitiesConfig.setFieldDefinitions({
+const fieldDefinitions = {
   contact: {
     id: null,
     firstName: null,
@@ -33,7 +36,20 @@ EntitiesConfig.setFieldDefinitions({
   task: {
     id: null
   }
+}
+
+const schemas = schemasFromFieldDefinitions(fieldDefinitions)
+
+schemas.contact.define({
+  buckets: arrayOf(schemas.bucket),
+  user: schemas.user,
+  emailAddresses: arrayOf(schemas.emailAddress)
 })
+schemas.bucket.define({
+  bucketPermissions: arrayOf(schemas.bucketPermission)
+})
+
+const records = recordsFromFieldDefinitions(fieldDefinitions)
 
 const baseActions = {
   list: { method: 'get' },
@@ -43,7 +59,7 @@ const baseActions = {
   destroy: { method: 'delete' }
 }
 
-EntitiesConfig.setResourceConfig({
+const resourceConfig = {
   contact: {
     endpoint: 'contacts',
     actions: {
@@ -58,13 +74,10 @@ EntitiesConfig.setResourceConfig({
       }
     }
   }
-})
+}
 
-EntitiesConfig.schemas.contact.define({
-  buckets: arrayOf(EntitiesConfig.schemas.bucket),
-  user: EntitiesConfig.schemas.user,
-  emailAddresses: arrayOf(EntitiesConfig.schemas.emailAddress)
-})
-EntitiesConfig.schemas.bucket.define({
-  bucketPermissions: arrayOf(EntitiesConfig.schemas.bucketPermission)
+EntitiesConfig.configure({
+  schemas,
+  records,
+  resourceConfig
 })

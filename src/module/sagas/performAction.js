@@ -2,7 +2,7 @@ import * as _ from 'lodash'
 import { fromJS, OrderedSet } from 'immutable'
 import { call, put, select, take } from 'redux-saga/effects'
 
-import { EntitiesConfig } from '../../index'
+import EntitiesConfig from '../../Config'
 
 import actions from '../actions'
 import selectors from '../selectors'

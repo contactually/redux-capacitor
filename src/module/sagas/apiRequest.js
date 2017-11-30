@@ -5,7 +5,7 @@ import { arrayOf, normalize } from 'normalizr'
 import { mergeKey } from '../utils'
 
 import actions from '../actions'
-import { EntitiesConfig } from '../../index'
+import EntitiesConfig from '../../Config'
 
 const DUMMY_ERROR_RESPONSE = {
   status: 500,
