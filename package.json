@@ -11,6 +11,7 @@
     "build": "yarn build:clean && yarn build:compile && yarn build:package",
     "build:local:link": "yarn build && cd lib && npm link .",
     "test": "node scripts/test.js --env=jsdom",
+    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "flow:check": "./node_modules/.bin/flow check",
     "hook": "bash ./hooks/install",
     "deploy": "yarn version && yarn build && cd ./lib && npm publish"
