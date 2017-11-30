@@ -14,11 +14,6 @@ const DUMMY_ERROR_RESPONSE = {
   ]
 }
 
-const isAsUserError = (response) => (
-  response.status === 403 &&
-  _.some(response.errors, (m) => m.match('No active as-user session') || m.match("Couldn't find User"))
-)
-
 /**
  * Take a response and normalize the response data (if applicable).
  *
@@ -72,10 +67,6 @@ function* makeRequest (payload) {
 
     const { method, uri, schemaType, itemId, associationKey, baseSchemaType, ...options } = payload
 
-    if (EntitiesConfig.Config.asUser) {
-      options.headers = { 'As-User': EntitiesConfig.Config.asUser.userId }
-    }
-
     const response = yield call([apiClient, apiClient[method]], uri, options)
 
     const { ids, entities } = normalizeResponse(response, schemaType)
@@ -96,10 +87,6 @@ function* makeRequest (payload) {
       /** TODO: Report errors to newrelic */
       console.error('Unexpected error in makeRequest', error)
       error.response = DUMMY_ERROR_RESPONSE
-    }
-
-    if (isAsUserError(error.response)) {
-      EntitiesConfig.Config.asUser.endAsUser()
     }
 
     return { response: error.response, error }
