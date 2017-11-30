@@ -68,7 +68,7 @@ const normalizeResponse = (givenResponse, schemaType) => {
  */
 function* makeRequest (payload) {
   try {
-    const apiClient = new EntitiesConfig.ApiClient({ rethrowRequestError: true })
+    const apiClient = EntitiesConfig.apiClient
 
     const { method, uri, schemaType, itemId, associationKey, baseSchemaType, ...options } = payload
 

@@ -9,8 +9,8 @@ class EntitiesSingleton {
     this.records = recordsFromFieldDefinitions(fieldDefinitions)
   }
 
-  setApiClient (ApiClient) {
-    this.ApiClient = ApiClient
+  setApiClient (apiClient) {
+    this.apiClient = apiClient
   }
 
   setResourceConfig (resourceConfig) {
