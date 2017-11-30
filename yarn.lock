@@ -1469,13 +1469,6 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
-denormalizr@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/denormalizr/-/denormalizr-0.4.1.tgz#b08ff8ca6d4b13b993f44d695117e8d721830505"
-  dependencies:
-    lodash "^4.16.3"
-    normalizr "^2.0.0"
-
 des.js@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/des.js/-/des.js-1.0.0.tgz#c074d2e2aa6a8a9a07dbd61f9a15c2cd83ec8ecc"
@@ -2862,7 +2855,7 @@ lodash.flattendeep@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
 
-lodash@^4.14.0, lodash@^4.15.0, lodash@^4.16.3, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
+lodash@^4.14.0, lodash@^4.15.0, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -3117,12 +3110,6 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
   resolved "https://registry.yarnpkg.com/normalize-path/-/normalize-path-2.1.1.tgz#1ab28b556e198363a8c1a6f7e6fa20137fe6aed9"
   dependencies:
     remove-trailing-separator "^1.0.1"
-
-normalizr@^2.0.0:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/normalizr/-/normalizr-2.3.1.tgz#ac12d771ce1fe6a43094c3d828caada4ed9a4540"
-  dependencies:
-    lodash "^4.17.2"
 
 normalizr@^3.2.4:
   version "3.2.4"

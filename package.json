@@ -41,7 +41,6 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "denormalizr": "^0.4.1",
     "immutable": "^3.8.1",
     "lodash": "^4.17.2",
     "normalizr": "^3.2.4",
