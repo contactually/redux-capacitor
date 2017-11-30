@@ -1,6 +1,10 @@
 import { arrayOf } from 'normalizr'
 import { List } from 'immutable'
 import { EntitiesConfig } from '../../src/index'
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-15'
+
+Enzyme.configure({ adapter: new Adapter() })
 
 EntitiesConfig.setFieldDefinitions({
   contact: {
@@ -43,9 +47,17 @@ EntitiesConfig.setResourceConfig({
   contact: {
     endpoint: 'contacts',
     actions: {
-      ...baseActions,
+      ...baseActions
     }
   },
+  bucket: {
+    endpoint: {
+      endpoint: 'buckets',
+      actions: {
+        ...baseActions
+      }
+    }
+  }
 })
 
 EntitiesConfig.schemas.contact.define({
