@@ -91,7 +91,7 @@ const handleMissingIdsChange = (newProps, oldProps = {}) => {
 // Declare this here to keep the object reference constant
 const defaultPassedIds = []
 
-const createMapState = (containerKeys) => (initialState, initialProps) => {
+const createMapState = (containers, containerKeys) => (initialState, initialProps) => {
   const selectors = containerKeys.reduce((memo, key) => {
     const { containerId } = initialProps[key]
 
@@ -134,7 +134,7 @@ const createMapState = (containerKeys) => (initialState, initialProps) => {
   }, {})
 }
 
-const createMapDispatch = (containerKeys) => (initialDispatch, initialProps) => {
+const createMapDispatch = (containers, containerKeys) => (initialDispatch, initialProps) => {
   const boundActions = containerKeys.reduce((memo, key) => {
     const defaultPayload = {
       containerId: initialProps[key].containerId,
@@ -174,8 +174,8 @@ const createMapDispatch = (containerKeys) => (initialDispatch, initialProps) => 
 function entities (containers, sagas = {}, identPrefix) {
   const containerKeys = Object.keys(containers)
 
-  const mapState = createMapState(containerKeys)
-  const mapDispatch = createMapDispatch(containerKeys)
+  const mapState = createMapState(containers, containerKeys)
+  const mapDispatch = createMapDispatch(containers, containerKeys)
 
   const containerPropsCache = {}
   const mergeProps = (stateProps, dispatchProps, props) => {

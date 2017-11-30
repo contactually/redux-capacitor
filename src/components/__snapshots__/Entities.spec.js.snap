@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`components.Entities createMapDispatch binding actions performAction 1`] = `
+Array [
+  Object {
+    "error": undefined,
+    "payload": Object {
+      "action": "fetch",
+      "containerId": "contacts-container",
+      "itemId": "contact_123",
+      "type": "contact",
+    },
+    "type": "S/entities/PERFORM_ACTION/TRIGGER",
+  },
+]
+`;
+
+exports[`components.Entities createMapState gets state 1`] = `
+Object {
+  "bucketResource": Object {
+    "errors": Object {},
+    "filters": Object {},
+    "isFetched": false,
+    "isLoading": false,
+    "item": undefined,
+    "items": Array [],
+    "meta": Object {},
+    "missingIds": Array [],
+    "total": 0,
+  },
+  "contactResource": Object {
+    "errors": Object {},
+    "filters": Object {},
+    "isFetched": false,
+    "isLoading": false,
+    "item": undefined,
+    "items": Array [],
+    "meta": Object {},
+    "missingIds": Array [],
+    "total": 0,
+  },
+}
+`;
+
+exports[`components.Entities createMapState sets isFetched when a container has latestRequest 1`] = `
+Object {
+  "bucketResource": Object {
+    "errors": Immutable.Map {},
+    "filters": Immutable.Map {},
+    "isFetched": false,
+    "isLoading": false,
+    "item": undefined,
+    "items": Immutable.List [],
+    "meta": Immutable.Map {},
+    "missingIds": Immutable.Set [],
+    "total": 0,
+  },
+  "contactResource": Object {
+    "errors": Immutable.Map {},
+    "filters": Immutable.Map {},
+    "isFetched": true,
+    "isLoading": false,
+    "item": undefined,
+    "items": Immutable.List [],
+    "meta": Immutable.Map {},
+    "missingIds": Immutable.Set [],
+    "total": 0,
+  },
+}
+`;
+
+exports[`components.Entities createMapState sets isLoading when a container has activeRequests 1`] = `
+Object {
+  "bucketResource": Object {
+    "errors": Immutable.Map {},
+    "filters": Immutable.Map {},
+    "isFetched": false,
+    "isLoading": false,
+    "item": undefined,
+    "items": Immutable.List [],
+    "meta": Immutable.Map {},
+    "missingIds": Immutable.Set [],
+    "total": 0,
+  },
+  "contactResource": Object {
+    "errors": Immutable.Map {},
+    "filters": Immutable.Map {},
+    "isFetched": false,
+    "isLoading": true,
+    "item": undefined,
+    "items": Immutable.List [],
+    "meta": Immutable.Map {},
+    "missingIds": Immutable.Set [],
+    "total": 0,
+  },
+}
+`;
+
+exports[`components.Entities entities has correct props for bucketResource 1`] = `
+Object {
+  "errors": Immutable.List [],
+  "fetchAll": [Function],
+  "filters": Immutable.Map {},
+  "initialize": [Function],
+  "isFetched": false,
+  "isLoading": false,
+  "item": undefined,
+  "items": Immutable.List [],
+  "meta": Immutable.Map {},
+  "missingIds": Immutable.Set [],
+  "performAction": [Function],
+  "total": 0,
+  "updateCollection": [Function],
+  "updateFilters": [Function],
+}
+`;
+
+exports[`components.Entities entities has correct props for contactResource 1`] = `
+Object {
+  "errors": Immutable.List [],
+  "fetchAll": [Function],
+  "filters": Immutable.Map {},
+  "initialize": [Function],
+  "isFetched": false,
+  "isLoading": false,
+  "item": undefined,
+  "items": Immutable.List [],
+  "meta": Immutable.Map {},
+  "missingIds": Immutable.Set [],
+  "performAction": [Function],
+  "total": 0,
+  "updateCollection": [Function],
+  "updateFilters": [Function],
+}
+`;

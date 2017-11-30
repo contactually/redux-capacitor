@@ -19,6 +19,8 @@
   "devDependencies": {
     "@types/lodash.flow": "^3.5.3",
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-lodash": "^3.2.11",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -29,9 +31,12 @@
     "babel-preset-flow": "^6.23.0",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "enzyme": "^3.2.0",
+    "enzyme-adapter-react-15": "^1.0.5",
     "flow-bin": "0.54.1",
     "jest": "^21.2.1",
     "raf": "^3.4.0",
+    "react-test-renderer": "^16.2.0",
     "webpack": "^3.8.1"
   },
   "dependencies": {
@@ -42,6 +47,7 @@
     "normalizr": "^2.3.0",
     "prop-types": "^15.6.0",
     "react": "^15.6.1",
+    "react-dom": "^15.6.1",
     "react-immutable-proptypes": "^2.1.0",
     "react-redux": "^5.0.6",
     "redux": "^3.6.0",
