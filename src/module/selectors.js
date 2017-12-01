@@ -128,7 +128,7 @@ const requests: ReduxSelector<RequestMap> = createSelector(
 const entityItems: ReduxSelector<List<Record<any>>> = createSelector(
   entities, typeFromProps, idsFromProps,
   (entities, type, ids) => EntitiesConfig.schemas[type]
-    ? denormalize(ids, [EntitiesConfig.schemas[type]], entities)
+    ? denormalize(ids, [EntitiesConfig.schemas[type]], entities).filter(Boolean)
     : ids
 )
 
@@ -186,7 +186,7 @@ _.memoize((containerId: string) => createItemResultSelector(
   containerEntityMap(containerId), containerIds(containerId), containerType(containerId),
   (entities, ids, type) =>
     EntitiesConfig.schemas[type]
-      ? denormalize(ids, [EntitiesConfig.schemas[type]], entities)
+      ? denormalize(ids, [EntitiesConfig.schemas[type]], entities).filter(Boolean)
       : ids
 ))
 
