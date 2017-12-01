@@ -1,4 +1,4 @@
-import { fromJS, Set } from 'immutable'
+import { fromJS, Set, Record } from 'immutable'
 
 import EntitiesConfig from '../index'
 
@@ -195,6 +195,25 @@ describe('selectors', () => {
         expect(selector(state) === selector(state)).toBeTruthy()
         expect(originalItems.get(0) === changedItems.get(0)).toBeTruthy()
         expect(originalItems.get(1) === changedItems.get(1)).not.toBeTruthy()
+      })
+    })
+
+    describe('when ids are missing', () => {
+      test('returns an array without those items', () => {
+        const selector = selectors.containerItems(contactIdent)
+        const stateWithMissingIds = state
+          .setIn([MODULE_NAME, 'containers', contactIdent, 'ids'], fromJS([
+            'contact_123',
+            'contact_1234',
+            contact.id,
+            contact2.id
+          ]))
+        const items = selector(stateWithMissingIds)
+        expect(items.size).toEqual(2)
+        expect(items.get(0)).toEqual(expect.any(Record))
+        expect(items.get(1)).toEqual(expect.any(Record))
+        expect(items.get(0).id).toEqual(contact.id)
+        expect(items.get(1).id).toEqual(contact2.id)
       })
     })
   })
