@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { fromJS, is, List, Map, OrderedMap } from 'immutable'
+import { fromJS, is, List, Map, OrderedMap, Seq } from 'immutable'
 import { cancel, take, fork } from 'redux-saga/effects'
 import { createSelectorCreator } from 'reselect'
 import fbShallowEqual from 'fbjs/lib/shallowEqual'
@@ -148,6 +148,19 @@ export const createReducer = (initialState, handlers) =>
       ? handlers[type](state, payload, error)
       : state
   )
+
+/**
+ * By default, fromJS will use unordered Maps to build nested objects
+ * This method uses OrderedMaps instead, to preserve key order.
+ * @param {object|array} js
+ * @returns {List|Map}
+ */
+export const fromJSOrdered = (js) => {
+  return typeof js !== 'object' || js === null ? js :
+    Array.isArray(js) ?
+      Seq(js).map(fromJSOrdered).toList() :
+      Seq(js).map(fromJSOrdered).toOrderedMap();
+}
 
 const isList = List.isList
 const isMap = Map.isMap
