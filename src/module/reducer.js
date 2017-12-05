@@ -3,7 +3,7 @@ import { fromJS, is, Set } from 'immutable'
 import { entitiesToRecords } from '../records'
 
 import actions from './actions'
-import { createReducer, safeMergeDeep } from './utils'
+import { createReducer, safeMergeDeep, fromJSOrdered } from './utils'
 
 // Initial module state
 const initialState = fromJS({
@@ -48,7 +48,7 @@ const handleResetContainerData = (state, { containerId }) =>
   state.setIn(['containers', containerId], initialContainerState)
 
 const handleMergeEntities = (state, { entities }) =>
-  state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, entities)))
+  state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))
 
 const handleSetRequestStarted = (state, { requestId, ...rest }) =>
   state.mergeIn(['requests', requestId], { ...rest, requestedAt: new Date().getTime() })
@@ -58,7 +58,17 @@ const handleSetRequestCompleted = (state, { requestId, ...rest }) =>
 
 export {
   initialState,
-  initialContainerState
+  initialContainerState,
+
+  handleAddActiveRequest,
+  handleDeleteActiveRequest,
+  handleMergeContainerData,
+  handleMergeFilters,
+  handleSetFilters,
+  handleResetContainerData,
+  handleMergeEntities,
+  handleSetRequestStarted,
+  handleSetRequestCompleted
 }
 
 export default createReducer(initialState, {
