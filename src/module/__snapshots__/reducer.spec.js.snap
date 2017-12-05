@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer handleMergeEntities preserves order of nested maps 1`] = `
+Array [
+  "a_key",
+  "z_key",
+  "h_key",
+  "b_key",
+  "c_key",
+  "d_key",
+  "e_key",
+  "aa_key",
+]
+`;
