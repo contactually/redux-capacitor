@@ -4,7 +4,7 @@
 ## Installation
 
 ```
-yarn add @contactually/entities
+yarn add redux-capacitor
 ```
 
 ## Contributing
@@ -26,7 +26,7 @@ Developing locally is easy using `yarn publish:local`.
 To get started:
 
 1) *In this repo* Publish this app locally using `yarn publish:local`
-2) *In your project repo* Link the local version to your project using `yalc add @contactually/entities`
+2) *In your project repo* Link the local version to your project using `yalc add redux-capacitor`
 3) *In this repo* Whenever you make changes, run `yarn publish:local` to push the changes to your project.
 
 For example:
@@ -36,12 +36,12 @@ For example:
 $ pwd
 # => ~/Projects/entities
 $ yarn publish:local
-# => @contactually/entities@0.4.0-efe9eda8 published in store.
+# => redux-capacitor@0.4.0-efe9eda8 published in store.
 
 # Step 2
 $ cd ~/Projects/my-project
-$ yalc add @contactually/entities
-# => @contactually/entities@0.4.0-822024a8 locted ==> ~/Projects/my-project/node_modules/@contactually/entities
+$ yalc add redux-capacitor
+# => redux-capacitor@0.4.0-822024a8 locted ==> ~/Projects/my-project/node_modules/redux-capacitor
 
 # Step 3
 $ cd ~/Projects/entities
