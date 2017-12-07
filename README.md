@@ -1,5 +1,5 @@
-# Entities
-> We need a better name
+# Redux Capacitor
+> We need a cool logo
 
 ## Installation
 
