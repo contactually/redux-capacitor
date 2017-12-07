@@ -13,8 +13,8 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "flow:check": "./node_modules/.bin/flow check",
     "hook": "bash ./hooks/install",
-    "deploy": "yarn version && yarn build && cd ./lib && yarn harvest && npm publish",
-    "harvest": "echo It\\'s\\ harvest\\ time\\!"
+    "publish:npm": "yarn version && yarn build && cd ./lib && npm publish",
+    "publish:local": "yarn build && cd ./lib && yalc publish && yalc update"
   },
   "devDependencies": {
     "@types/lodash.flow": "^3.5.3",

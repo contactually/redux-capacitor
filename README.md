@@ -19,28 +19,36 @@ yarn hook
 
 ### Making Changes Locally
 
-Developing locally is easy using `npm link`. To get started:
+Developing locally is easy using `yarn publish:local`.
 
-1) In this project, run `yarn build`.
-2) In this project, cd into the `lib/` directory and run `yarn link`
-2) In the project which has `@contactually/entities` as a dependency, run `yarn link @contactually/entities`
-3) That's it! Make changes in the `src` directory, and run `yarn build` to build the local files.
-   - _You must run_ `yarn build` _whenever you make changes in order for them to be visible in your other project._
-4) When you are done and no longer want to serve your local build, you can unlink by running `yarn unlink @contactually/entities` in your other project.
+*NOTE*: Before starting, install `yalc` with `npm i -g yalc`.
+
+To get started:
+
+1) *In this repo* Publish this app locally using `yarn publish:local`
+2) *In your project repo* Link the local version to your project using `yalc add @contactually/entities`
+3) *In this repo* Whenever you make changes, run `yarn publish:local` to push the changes to your project.
 
 For example:
 ```
+# Be sure that yalc is installed globally! (npm i -g yalc)
+# Step 1
 $ pwd
 # => ~/Projects/entities
-$ yarn install
-$ yarn build
-$ cd lib/
-$ yarn link
-# => success Registered "@contactually/entities".
-# now link the local entities repo to your project
+$ yarn publish:local
+# => @contactually/entities@0.4.0-efe9eda8 published in store.
+
+# Step 2
 $ cd ~/Projects/my-project
-$ yarn link @contactually/entities
-# => Using linked module for "@contactually/entities".
+$ yalc add @contactually/entities
+# => @contactually/entities@0.4.0-822024a8 locted ==> ~/Projects/my-project/node_modules/@contactually/entities
+
+# Step 3
+$ cd ~/Projects/entities
+# make some changes...
+$ yarn publish:local
+# make some more changes...
+$ yarn publish:local
 ```
 
 ### Testing
@@ -58,5 +66,5 @@ yarn test
 Can only be published by the *contactually* npm user. Log in as this user, and then run:
 
 ```
-yarn publish
+yarn publish:npm
 ```
