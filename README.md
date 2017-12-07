@@ -1,4 +1,5 @@
 # Redux Capacitor
+[![npm version](https://badge.fury.io/js/redux-capacitor.svg)](https://badge.fury.io/js/redux-capacitor)
 [![codecov](https://codecov.io/gh/contactually/redux-capacitor/branch/master/graph/badge.svg)](https://codecov.io/gh/contactually/redux-capacitor)
 
 > We need a cool logo
