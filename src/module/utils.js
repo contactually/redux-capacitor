@@ -163,9 +163,8 @@ export const fromJSOrdered = (js) => {
 }
 
 const isList = List.isList
-const isMap = Map.isMap
 const isObject = _.isObject
-const isRecord = (a) => a instanceof Record // There's no built-in `isRecord` :|
+export const isRecord = (a) => a instanceof Record // There's no built-in `isRecord` :|
 
 /**
  * Custom 'merger' function for use with Immutable `mergeWith` that manually
