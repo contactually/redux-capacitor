@@ -1,5 +1,5 @@
 import * as _ from 'lodash'
-import { fromJS, is, List, Map, OrderedMap, Seq } from 'immutable'
+import { fromJS, is, List, Map, OrderedMap, Seq, Record } from 'immutable'
 import { cancel, take, fork } from 'redux-saga/effects'
 import { createSelectorCreator } from 'reselect'
 import fbShallowEqual from 'fbjs/lib/shallowEqual'
@@ -165,7 +165,7 @@ export const fromJSOrdered = (js) => {
 const isList = List.isList
 const isMap = Map.isMap
 const isObject = _.isObject
-const isRecord = (a) => a && isMap(a._map) // There's no built-in `isRecord` :|
+const isRecord = (a) => a instanceof Record // There's no built-in `isRecord` :|
 
 /**
  * Custom 'merger' function for use with Immutable `mergeWith` that manually
