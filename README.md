@@ -68,3 +68,9 @@ Can only be published by the *contactually* npm user. Log in as this user, and t
 ```
 yarn publish:npm
 ```
+
+## Contributors
+
+Originally written by @jcarbo and @apiv for @Contactually.
+
+Iterative improvements and maintenance is continued by @apiv and the @Contactually team.
