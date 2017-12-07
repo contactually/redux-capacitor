@@ -65,5 +65,51 @@ describe('reducer', () => {
 
       expect(keys).toMatchSnapshot()
     })
+
+    test('handles multiple merges to the same entity', () => {
+      const fieldDefinitions = {
+        user: {
+          email: null,
+          settings: Map()
+        }
+      }
+
+      const records = recordsFromFieldDefinitions(fieldDefinitions)
+      const schemas = schemasFromFieldDefinitions(fieldDefinitions)
+
+      EntitiesConfig.configure({
+        records,
+        schemas
+      })
+
+      const state = Map({
+        entities: Map({
+          contact: Map({})
+        })
+      })
+      const entities1 = {
+        contact: {
+          contact_1: {
+            settings: {
+              enabledFeatures: ['one', 'two', 'three']
+            }
+          }
+        }
+      }
+      const entities2 = {
+        contact: {
+          contact_1: {
+            settings: {
+              whatever: 'hi'
+            }
+          }
+        }
+      }
+
+      const result1 = handleMergeEntities(state, { entities: entities1 })
+      const result2 = handleMergeEntities(result1, { entities: entities2 })
+      expect(result1.getIn(['entities', 'contact', 'contact_1', 'settings', 'enabledFeatures'])).toMatchSnapshot()
+      expect(result2.getIn(['entities', 'contact', 'contact_1', 'settings', 'enabledFeatures'])).toMatchSnapshot()
+    })
   })
 })
