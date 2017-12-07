@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`reducer handleMergeEntities handles multiple merges to the same entity 1`] = `
+Immutable.List [
+  "one",
+  "two",
+  "three",
+]
+`;
+
+exports[`reducer handleMergeEntities handles multiple merges to the same entity 2`] = `
+Immutable.List [
+  "one",
+  "two",
+  "three",
+]
+`;
+
 exports[`reducer handleMergeEntities preserves order of nested maps 1`] = `
 Array [
   "a_key",
