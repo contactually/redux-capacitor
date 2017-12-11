@@ -14,6 +14,7 @@ yarn add redux-capacitor
 ## Documentation
 
 - [Testing](/docs/testing.md)
+- [Internals](/docs/internals.md)
 
 ## Contributing
 
