@@ -11,6 +11,10 @@
 yarn add redux-capacitor
 ```
 
+## Documentation
+
+- [Testing](/docs/testing.md)
+
 ## Contributing
 
 ### Setup
