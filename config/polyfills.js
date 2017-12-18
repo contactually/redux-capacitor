@@ -3,3 +3,7 @@
 if (process.env.NODE_ENV === 'test') {
   require('raf').polyfill(global);
 }
+
+window.requestAnimationFrame = (callback) => {
+  setTimeout(callback, 0);
+}
