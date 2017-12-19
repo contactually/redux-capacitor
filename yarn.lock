@@ -3608,9 +3608,9 @@ readdirp@^2.0.0:
     readable-stream "^2.0.2"
     set-immediate-shim "^1.0.1"
 
-redux-saga@0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.12.1.tgz#79c9263d67486fd26a7a3d3b9df8ed65057a9fc6"
+redux-saga@0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.0.tgz#0a231db0a1489301dd980f6f2f88d8ced418f724"
 
 redux@^3.6.0:
   version "3.7.2"
