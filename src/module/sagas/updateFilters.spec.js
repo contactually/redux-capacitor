@@ -91,21 +91,4 @@ describe('entities.sagas.updateFilters', () => {
       expect(generator.next().value).toMatchObject(expectedEffect)
     })
   })
-
-  describe('with resetContainer: true', () => {
-    const payload = {
-      containerId,
-      filters: { team_search: true, page: 2 },
-      resetContainer: true
-    }
-    const generator = updateFilters(payload)
-
-    test('resets the container', () => {
-      const expectedEffect = put(actions.D.resetContainerData({
-        containerId
-      }))
-
-      expect(generator.next().value).toMatchObject(expectedEffect)
-    })
-  })
 })
