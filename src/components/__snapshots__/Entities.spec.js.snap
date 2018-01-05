@@ -15,6 +15,19 @@ Array [
 ]
 `;
 
+exports[`components.Entities createMapDispatch binding actions resetContainer 1`] = `
+Array [
+  Object {
+    "error": undefined,
+    "payload": Object {
+      "containerId": "contacts-container",
+      "type": "contact",
+    },
+    "type": "D/entities/RESET_CONTAINER_DATA",
+  },
+]
+`;
+
 exports[`components.Entities createMapState gets state 1`] = `
 Object {
   "bucketResource": Object {
@@ -109,6 +122,7 @@ Object {
   "meta": Immutable.Map {},
   "missingIds": Immutable.Set [],
   "performAction": [Function],
+  "resetContainer": [Function],
   "total": 0,
   "updateCollection": [Function],
   "updateFilters": [Function],
@@ -128,6 +142,7 @@ Object {
   "meta": Immutable.Map {},
   "missingIds": Immutable.Set [],
   "performAction": [Function],
+  "resetContainer": [Function],
   "total": 0,
   "updateCollection": [Function],
   "updateFilters": [Function],

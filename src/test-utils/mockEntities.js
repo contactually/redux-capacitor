@@ -69,7 +69,10 @@ mockEntities.stub = (options) => {
     updateFilters: options.updateFilters || mockFn(),
 
     /** Update the filters for this container. Uses existing filters. */
-    updateCollection: options.updateCollection || mockFn()
+    updateCollection: options.updateCollection || mockFn(),
+
+    /** Resets the container */
+    resetContainer: options.resetContainer || mockFn()
   }
 }
 

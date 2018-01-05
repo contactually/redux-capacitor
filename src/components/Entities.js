@@ -49,7 +49,10 @@ const containerPropTypes = {
   total: PropTypes.number,
 
   /** Update the filters for this container. */
-  updateFilters: PropTypes.func
+  updateFilters: PropTypes.func,
+
+  /** Resets the state of this container */
+  resetContainer: PropTypes.func
 }
 
 const initializeContainer = (props, config) => {
@@ -145,7 +148,8 @@ const createMapDispatch = (containers, containerKeys) => (initialDispatch, initi
       fetchAll: EntitiesModule.actions.S.FETCH_ALL.trigger,
       initialize: EntitiesModule.actions.S.INITIALIZE_CONTAINER.trigger,
       performAction: EntitiesModule.actions.S.PERFORM_ACTION.trigger,
-      updateFilters: EntitiesModule.actions.S.UPDATE_FILTERS.trigger
+      updateFilters: EntitiesModule.actions.S.UPDATE_FILTERS.trigger,
+      resetContainer: EntitiesModule.actions.D.resetContainerData
     }, initialDispatch, defaultPayload)
 
     // For backwards compatibility with item/collection
