@@ -202,6 +202,11 @@ describe('components.Entities', () => {
         const result = actions.contactResource.updateFilters()
         expect(initialDispatch).toBeCalled()
       })
+
+      it('resetContainer', () => {
+        const result = actions.contactResource.resetContainer()
+        expect(initialDispatch.mock.calls[initialDispatch.mock.calls.length - 1]).toMatchSnapshot()
+      })
     })
   })
 })

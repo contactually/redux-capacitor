@@ -7,6 +7,9 @@ import performAction from './performAction'
  * Update the filters for a given container.
  *
  * @param  {object} givenPayload
+ * @param  {object} filters the new filters
+ * @param  {boolean=true} debounce if true, the fetch side-effect will be debounced by 400ms
+ * @param  {boolean=false} resetFilters if true, filters will be replaced with the given `filters` param. If false, they will be merged with the current filters.
  * @return {void}
  */
 function* updateFilters (givenPayload = {}) {
@@ -14,14 +17,9 @@ function* updateFilters (givenPayload = {}) {
     containerId,
     filters = {},
     debounce = true,
-    resetContainer = false,
     resetFilters = false,
     ...rest
   } = givenPayload
-
-  if (resetContainer) {
-    yield put(actions.D.resetContainerData({containerId}))
-  }
 
   // When a filter other than the page changes, move back to the first page.
   if (!filters.page) { filters.page = 1 }
