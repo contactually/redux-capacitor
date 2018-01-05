@@ -14,14 +14,9 @@ function* updateFilters (givenPayload = {}) {
     containerId,
     filters = {},
     debounce = true,
-    resetContainer = false,
     resetFilters = false,
     ...rest
   } = givenPayload
-
-  if (resetContainer) {
-    yield put(actions.D.resetContainerData({containerId}))
-  }
 
   // When a filter other than the page changes, move back to the first page.
   if (!filters.page) { filters.page = 1 }
