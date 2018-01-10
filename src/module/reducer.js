@@ -44,8 +44,11 @@ const handleMergeFilters = (state, { containerId, filters }) =>
 const handleSetFilters = (state, { containerId, filters }) =>
   state.setIn(['containers', containerId, 'filters'], fromJS(filters))
 
-const handleResetContainerData = (state, { containerId }) =>
-  state.setIn(['containers', containerId], initialContainerState)
+const handleResetContainerData = (state, { containerId }) => {
+  const originalType = state.getIn(['containers', containerId, 'type'])
+  return state
+    .setIn(['containers', containerId], initialContainerState.set('type', originalType))
+}
 
 const handleMergeEntities = (state, { entities }) =>
   state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))

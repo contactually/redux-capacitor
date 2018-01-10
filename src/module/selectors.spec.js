@@ -216,6 +216,24 @@ describe('selectors', () => {
         expect(items.get(1).id).toEqual(contact2.id)
       })
     })
+
+    describe('when ids change', () => {
+      test('returns the correct list of items', () => {
+        const selector = selectors.containerItems(contactIdent)
+        const stateWithIds = state
+          .setIn([MODULE_NAME, 'containers', contactIdent, 'ids'], fromJS([
+            contact.id,
+            contact2.id
+          ]))
+        const stateWithoutIds = state.setIn([MODULE_NAME, 'containers', contactIdent, 'ids'], fromJS([]))
+
+        let items
+        items = selector(stateWithIds)
+        expect(items.size).toEqual(2)
+        items = selector(stateWithoutIds)
+        expect(items.size).toEqual(0)
+      })
+    })
   })
 
   describe('containerMissingIds', () => {
