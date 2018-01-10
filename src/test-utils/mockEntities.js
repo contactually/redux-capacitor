@@ -66,7 +66,7 @@ mockEntities.stub = (options) => {
     total: options.total || 0,
 
     /** Type of entity from resource config */
-    type: options.type
+    type: options.type,
 
     /** Update the filters for this container. */
     updateFilters: options.updateFilters || mockFn(),
