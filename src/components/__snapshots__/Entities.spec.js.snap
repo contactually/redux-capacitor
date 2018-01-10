@@ -109,11 +109,13 @@ Object {
 }
 `;
 
-exports[`components.Entities entities has correct props for bucketResource 1`] = `
+exports[`components.Entities integration tests has correct props for bucketResource 1`] = `
 Object {
   "errors": Immutable.List [],
   "fetchAll": [Function],
-  "filters": Immutable.Map {},
+  "filters": Immutable.Map {
+    "page": 1,
+  },
   "initialize": [Function],
   "isFetched": false,
   "isLoading": false,
@@ -129,14 +131,16 @@ Object {
 }
 `;
 
-exports[`components.Entities entities has correct props for contactResource 1`] = `
+exports[`components.Entities integration tests has correct props for contactResource 1`] = `
 Object {
   "errors": Immutable.List [],
   "fetchAll": [Function],
-  "filters": Immutable.Map {},
+  "filters": Immutable.Map {
+    "page": 1,
+  },
   "initialize": [Function],
   "isFetched": false,
-  "isLoading": false,
+  "isLoading": true,
   "item": undefined,
   "items": Immutable.List [],
   "meta": Immutable.Map {},
