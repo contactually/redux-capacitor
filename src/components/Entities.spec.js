@@ -1,6 +1,7 @@
 import createSagaMiddleware from 'redux-saga'
 import { applyMiddleware, createStore } from 'redux'
 import React from 'react'
+import { Record } from 'immutable'
 import { fromJS, Set, List, Map } from 'immutable'
 import { Provider } from 'react-redux'
 import SagaProvider from './SagaProvider'
@@ -11,7 +12,14 @@ import entities, {
   createMapState,
   createMapDispatch
 } from './Entities'
+import MODULE_NAME from '../module/identity'
 import { omit } from 'lodash'
+
+const ContactRecord = Record({
+  id: null,
+  firstName: 'first',
+  lastName: 'last'
+})
 
 class MockApiClient {
   constructor () {
@@ -20,8 +28,24 @@ class MockApiClient {
     this.post = jest.fn()
     this.delete = jest.fn()
 
-    this.get.mockReturnValue(Promise.resolve({ data: {} }))
+    this.get.mockReturnValue(Promise.resolve({
+      data: [
+        { id: 'contact_1', firstName: 'Austin' },
+        { id: 'contact_2', firstName: 'Test' }
+      ],
+      headers: {},
+      meta: {
+        total: 5
+      },
+      status: 200
+    }))
   }
+}
+
+const delay = (ms) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
 }
 
 const stubRequest = (state: {}) => {
@@ -42,12 +66,12 @@ const stubContainer = (state) => {
 
 const stubStore = (state: {entities?: {}, containers?: {}, requests?: {}}) => {
   return fromJS({
-    entities: {
+    [MODULE_NAME]: {
       entities: {},
       containers: {},
       requests: {}
     }
-  }).mergeDeep({entities: fromJS(state)})
+  }).mergeDeep({[MODULE_NAME]: fromJS(state)})
 }
 
 describe('components.Entities', () => {
@@ -66,7 +90,7 @@ describe('components.Entities', () => {
     }
   }
 
-  describe('entities', () => {
+  describe('integration tests', () => {
     let component
     beforeEach(() => {
       EntitiesConfig.configure({
@@ -74,7 +98,7 @@ describe('components.Entities', () => {
       })
       const sagaMiddleware = createSagaMiddleware()
       const store = createStore(
-        EntitiesModule.rootReducer,
+        (state, action) => state.set(MODULE_NAME, EntitiesModule.rootReducer(state.get(MODULE_NAME), action)),
         stubStore({}),
         applyMiddleware(sagaMiddleware)
       )
@@ -102,6 +126,18 @@ describe('components.Entities', () => {
     it('has correct props for bucketResource', () => {
       const bucketResourceProps = component.find('Test').at(0).prop('bucketResource')
       expect(omit(bucketResourceProps, ['containerId'])).toMatchSnapshot()
+    })
+
+    describe('when resetContainer is called', () => {
+      test('do', () => {
+        component.update()
+        expect(component.find('Test').at(0).prop('contactResource').isFetched).toEqual(true)
+        expect(component.find('Test').at(0).prop('contactResource').items.size).toEqual(2)
+        component.find('Test').at(0).prop('contactResource').resetContainer()
+        component.update()
+        expect(component.find('Test').at(0).prop('contactResource').isFetched).toEqual(false)
+        expect(component.find('Test').at(0).prop('contactResource').items.size).toEqual(0)
+      })
     })
   })
 
