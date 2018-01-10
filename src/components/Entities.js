@@ -48,6 +48,9 @@ const containerPropTypes = {
   /** Total entities in a given collection. */
   total: PropTypes.number,
 
+  /** Type of the collecton associated with resource config */
+  type: PropTypes.string,
+
   /** Update the filters for this container. */
   updateFilters: PropTypes.func,
 
@@ -109,7 +112,7 @@ const createMapState = (containers, containerKeys) => (initialState, initialProp
   // Needs to be a function so that redux will use this as the
   // mapStateToProps function on subsequent renders.
   return (globalState, props) => containerKeys.reduce((memo, key) => {
-    const containerProps = { ...props[key], type: containers[key].type }
+    const containerProps = { type: containers[key].type, ...props[key] }
     if (containers[key].getId) {
       containerProps.ids = containers[key].getId({ ...props, ...memo }) || defaultPassedIds
     } else if (props.itemId) {
@@ -121,6 +124,7 @@ const createMapState = (containers, containerKeys) => (initialState, initialProp
 
     memo[key] = {
       items,
+      type: containerProps.type,
       missingIds: selectors[key].missingIds(globalState, containerProps),
 
       // Convenience helpers derived from state/items
@@ -141,7 +145,7 @@ const createMapDispatch = (containers, containerKeys) => (initialDispatch, initi
   const boundActions = containerKeys.reduce((memo, key) => {
     const defaultPayload = {
       containerId: initialProps[key].containerId,
-      type: containers[key].type
+      type: initialProps[key].type || containers[key].type
     }
 
     memo[key] = bindActionCreators({
