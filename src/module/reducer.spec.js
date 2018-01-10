@@ -4,6 +4,8 @@ import EntitiesConfig from '../Config'
 import {recordsFromFieldDefinitions} from '../records'
 import {schemasFromFieldDefinitions} from '../schemas'
 import {
+  initialContainerState,
+
   handleAddActiveRequest,
   handleDeleteActiveRequest,
   handleMergeContainerData,
@@ -17,6 +19,29 @@ import {
 import {fromJSOrdered} from "./utils";
 
 describe('reducer', () => {
+  describe('handleMergeContainerData', () => {
+    test('resets container data', () => {
+      const testContainerId = 'test-container-0099cc'
+      const testContainerType = 'contact'
+
+      const modifiedContainer = initialContainerState
+        .merge({
+          type: testContainerType,
+          ids: fromJS(['contact_1', 'contact_2'])
+        })
+
+      const state = fromJS({
+        containers: {
+          [testContainerId]: modifiedContainer
+        }
+      })
+
+      const result = handleResetContainerData(state, { containerId: testContainerId })
+      expect(result.getIn(['containers', testContainerId, 'ids']).size).toEqual(0)
+      expect(result.getIn(['containers', testContainerId, 'type'])).toEqual(testContainerType)
+    })
+  })
+
   describe('handleMergeEntities', () => {
     test('preserves order of nested maps', () => {
       const fieldDefinitions = {
