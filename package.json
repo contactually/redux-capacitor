@@ -13,7 +13,7 @@
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "flow:check": "./node_modules/.bin/flow check",
     "hook": "bash ./hooks/install",
-    "publish:npm": "yarn version && yarn build && cd ./lib && npm publish",
+    "publish:npm": "yarn version && yarn build && cd ./lib && npm publish && git push origin --tags",
     "publish:local": "yarn build && cd ./lib && yalc publish && yalc update"
   },
   "devDependencies": {
