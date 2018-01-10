@@ -162,6 +162,20 @@ describe('components.Entities', () => {
       expect(fromJS(result).toJS()).toMatchSnapshot()
     })
 
+    it('uses passed type over container type', () => {
+      const mapState = createMapState(containers, containerKeys)
+      const resultFn = mapState(initialState, initialProps)
+      const globalState = stubStore({
+        containers: {
+          'contacts-container': stubContainer({}),
+          'buckets-container': stubContainer({})
+        }
+      })
+      const props = {contactResource: {type: 'bucket'}}
+      const result = resultFn(globalState, props)
+      expect(result.contactResource.type).toEqual('bucket')
+    })
+
     it('sets isLoading when a container has activeRequests', () => {
       const mapState = createMapState(containers, containerKeys)
       const resultFn = mapState(initialState, initialProps)
@@ -242,6 +256,19 @@ describe('components.Entities', () => {
       it('resetContainer', () => {
         const result = actions.contactResource.resetContainer()
         expect(initialDispatch.mock.calls[initialDispatch.mock.calls.length - 1]).toMatchSnapshot()
+      })
+
+      describe('when passed a type prop', () => {
+        it('uses the passed prop over container prop', () => {
+          let actions
+          const mapDispatch = createMapDispatch(containers, containerKeys)
+          initialProps.contactResource = {containerId: 'contacts-container', type: 'bucket'}
+          const resultFn = mapDispatch(initialDispatch, initialProps)
+          actions = resultFn()
+          actions.contactResource.fetchAll()
+          const lastMockCall = initialDispatch.mock.calls.length - 1
+          expect(initialDispatch.mock.calls[lastMockCall][0].payload.type).toEqual('bucket')
+        })
       })
     })
   })
