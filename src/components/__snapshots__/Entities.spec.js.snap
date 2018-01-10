@@ -40,6 +40,7 @@ Object {
     "meta": Object {},
     "missingIds": Array [],
     "total": 0,
+    "type": "bucket",
   },
   "contactResource": Object {
     "errors": Object {},
@@ -51,6 +52,7 @@ Object {
     "meta": Object {},
     "missingIds": Array [],
     "total": 0,
+    "type": "contact",
   },
 }
 `;
@@ -67,6 +69,7 @@ Object {
     "meta": Immutable.Map {},
     "missingIds": Immutable.Set [],
     "total": 0,
+    "type": "bucket",
   },
   "contactResource": Object {
     "errors": Immutable.Map {},
@@ -78,6 +81,7 @@ Object {
     "meta": Immutable.Map {},
     "missingIds": Immutable.Set [],
     "total": 0,
+    "type": "contact",
   },
 }
 `;
@@ -94,6 +98,7 @@ Object {
     "meta": Immutable.Map {},
     "missingIds": Immutable.Set [],
     "total": 0,
+    "type": "bucket",
   },
   "contactResource": Object {
     "errors": Immutable.Map {},
@@ -105,6 +110,7 @@ Object {
     "meta": Immutable.Map {},
     "missingIds": Immutable.Set [],
     "total": 0,
+    "type": "contact",
   },
 }
 `;
@@ -126,6 +132,7 @@ Object {
   "performAction": [Function],
   "resetContainer": [Function],
   "total": 0,
+  "type": "bucket",
   "updateCollection": [Function],
   "updateFilters": [Function],
 }
@@ -148,6 +155,7 @@ Object {
   "performAction": [Function],
   "resetContainer": [Function],
   "total": 0,
+  "type": "contact",
   "updateCollection": [Function],
   "updateFilters": [Function],
 }
