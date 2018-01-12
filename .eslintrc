@@ -1,0 +1,36 @@
+{
+  "parser"  : "babel-eslint",
+  "extends" : [
+    "standard",
+    "standard-react"
+  ],
+  "env"     : {
+    "browser" : true
+  },
+  "globals" : {
+    "it"           : true,
+    "test"         : true,
+    "jest"         : true,
+    "expect"       : true,
+    "describe"     : true,
+    "beforeEach"   : true,
+    "afterEach"    : true,
+    "before"       : true,
+    "after"        : true,
+    "sinon"        : true,
+  },
+  "rules": {
+    "no-self-compare": 0,
+    "react/no-unused-prop-types": 0,
+    "semi" : [2, "never"],
+    "max-len": [2, 120, 2],
+    "no-duplicate-imports": 0,
+    "generator-star-spacing": 0,
+    "react/jsx-boolean-value": 0,
+    "require-jsdoc": 2,
+    "valid-jsdoc": [2, {
+      "requireParamDescription": false,
+      "requireReturnDescription": false
+    }]
+  }
+}
