@@ -13,6 +13,9 @@ import {
   handleSetFilters,
   handleResetContainerData,
   handleMergeEntities,
+  handleUpdateEntities,
+  handleRemoveContainerId,
+  handleAddContainerId,
   handleSetRequestStarted,
   handleSetRequestCompleted
 } from './reducer'
@@ -135,6 +138,92 @@ describe('reducer', () => {
       const result2 = handleMergeEntities(result1, { entities: entities2 })
       expect(result1.getIn(['entities', 'contact', 'contact_1', 'settings', 'enabledFeatures'])).toMatchSnapshot()
       expect(result2.getIn(['entities', 'contact', 'contact_1', 'settings', 'enabledFeatures'])).toMatchSnapshot()
+    })
+  })
+
+  describe('handleUpdateEntities', () => {
+    test('updates the entity in the store', () => {
+      const fieldDefinitions = {
+        contact: {
+          firstName: null
+        }
+      }
+
+      const records = recordsFromFieldDefinitions(fieldDefinitions)
+      const schemas = schemasFromFieldDefinitions(fieldDefinitions)
+
+      EntitiesConfig.configure({
+        records,
+        schemas
+      })
+
+      const state = Map({
+        entities: Map({
+          contact: Map({})
+        })
+      })
+      const response = {
+        data: {id: 'contact_1', firstName: 'Darth'}
+      }
+      const schemaType = 'contact'
+      const result = handleUpdateEntities(state, {response, schemaType})
+      expect(result.getIn(['entities', 'contact', 'contact_1', 'firstName'])).toEqual('Darth')
+    })
+  })
+
+  describe('handleAddContainerId', () => {
+    test('removes the id from the container', () => {
+      const containerId = 'test-container-0099cc'
+      const containerType = 'contact'
+      const id = 'contact_3'
+      const originalContainer = initialContainerState
+        .merge({
+          type: containerType,
+          ids: fromJS(['contact_1', 'contact_2'])
+        })
+
+      const state = fromJS({
+        containers: {
+          [containerId]: originalContainer
+        }
+      })
+
+      const fieldDefinitions = {
+        contact: {
+          firstName: null
+        }
+      }
+
+      const result = handleAddContainerId(state, {containerId, id})
+      expect(result.getIn(['containers', containerId, 'ids']).contains(id)).toEqual(true)
+    })
+  })
+
+  describe('handleRemoveContainerId', () => {
+    test('removes the id from the container', () => {
+      const containerId = 'test-container-0099cc'
+      const containerType = 'contact'
+      const id = 'contact_1'
+      const originalContainer = initialContainerState
+        .merge({
+          type: containerType,
+          ids: fromJS(['contact_1', 'contact_2'])
+        })
+
+      const state = fromJS({
+        containers: {
+          [containerId]: originalContainer
+        }
+      })
+
+      const fieldDefinitions = {
+        contact: {
+          firstName: null
+        }
+      }
+
+      const result = handleRemoveContainerId(state, {containerId, id})
+      expect(result.getIn(['containers', containerId, 'ids']).contains(id)).toEqual(false)
     })
   })
 })
