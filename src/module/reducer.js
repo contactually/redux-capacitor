@@ -51,6 +51,12 @@ const handleResetContainerData = (state, { containerId }) => {
     .setIn(['containers', containerId], initialContainerState.set('type', originalType))
 }
 
+/**
+ * @note experimental
+ * This is a reducer which can be used to push entities to the store directly, outside of the
+ * scope of the performAction saga. This was created for use with websockets, which should
+ * update the store immediately.
+ */
 const handlePushEntityUpdate = (state, {response, schemaType}) => {
   const { entities } = normalizeResponse(response, schemaType)
   return state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))
