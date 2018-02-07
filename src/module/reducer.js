@@ -51,23 +51,8 @@ const handleResetContainerData = (state, { containerId }) => {
     .setIn(['containers', containerId], initialContainerState.set('type', originalType))
 }
 
-const handleAddContainerId = (state, {containerId, id}) =>
-  state.updateIn(
-    ['containers', containerId, 'ids'],
-    arr => arr.concat(List([id]))
-  )
-
-const handleRemoveContainerId = (state, {containerId, id}) =>
-  state.updateIn(
-    ['containers', containerId, 'ids'],
-    arr => arr.filter(item => item !== id)
-  )
-
-const handleUpdateEntities = (state, {itemId, associationKey, response, baseSchemaType, schemaType}) => {
-  const { ids, entities } = normalizeResponse(response, schemaType)
-  if (itemId && associationKey && baseSchemaType) {
-    _.set(entities, `${baseSchemaType}.${itemId}.${associationKey}`, ids)
-  }
+const handlePushEntityUpdate = (state, {response, schemaType}) => {
+  const { entities } = normalizeResponse(response, schemaType)
   return state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))
 }
 
@@ -90,9 +75,7 @@ export {
   handleMergeFilters,
   handleSetFilters,
   handleResetContainerData,
-  handleUpdateEntities,
-  handleAddContainerId,
-  handleRemoveContainerId,
+  handlePushEntityUpdate,
   handleMergeEntities,
   handleSetRequestStarted,
   handleSetRequestCompleted
@@ -103,9 +86,7 @@ export default createReducer(initialState, {
   [actions.D.DELETE_ACTIVE_REQUEST]: handleDeleteActiveRequest,
   [actions.D.MERGE_CONTAINER_DATA]: handleMergeContainerData,
   [actions.D.RESET_CONTAINER_DATA]: handleResetContainerData,
-  [actions.D.UPDATE_ENTITIES]: handleUpdateEntities,
-  [actions.D.ADD_CONTAINER_ID]: handleAddContainerId,
-  [actions.D.REMOVE_CONTAINER_ID]: handleRemoveContainerId,
+  [actions.D.PUSH_ENTITY_UPDATE]: handlePushEntityUpdate,
   [actions.D.MERGE_ENTITIES]: handleMergeEntities,
   [actions.D.MERGE_FILTERS]: handleMergeFilters,
   [actions.D.SET_FILTERS]: handleSetFilters,
