@@ -1,5 +1,6 @@
-import { fromJS, is, Set } from 'immutable'
+import { fromJS, is, List, Set } from 'immutable'
 
+import {normalizeResponse} from './utils'
 import { entitiesToRecords } from '../records'
 
 import actions from './actions'
@@ -50,6 +51,17 @@ const handleResetContainerData = (state, { containerId }) => {
     .setIn(['containers', containerId], initialContainerState.set('type', originalType))
 }
 
+/**
+ * @note experimental
+ * This is a reducer which can be used to push entities to the store directly, outside of the
+ * scope of the performAction saga. This was created for use with websockets, which should
+ * update the store immediately.
+ */
+const handlePushEntityUpdate = (state, {response, schemaType}) => {
+  const { entities } = normalizeResponse(response, schemaType)
+  return state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))
+}
+
 const handleMergeEntities = (state, { entities }) =>
   state.updateIn(['entities'], (val) => entitiesToRecords(val.mergeWith(safeMergeDeep, fromJSOrdered(entities))))
 
@@ -69,6 +81,7 @@ export {
   handleMergeFilters,
   handleSetFilters,
   handleResetContainerData,
+  handlePushEntityUpdate,
   handleMergeEntities,
   handleSetRequestStarted,
   handleSetRequestCompleted
@@ -79,6 +92,7 @@ export default createReducer(initialState, {
   [actions.D.DELETE_ACTIVE_REQUEST]: handleDeleteActiveRequest,
   [actions.D.MERGE_CONTAINER_DATA]: handleMergeContainerData,
   [actions.D.RESET_CONTAINER_DATA]: handleResetContainerData,
+  [actions.D.PUSH_ENTITY_UPDATE]: handlePushEntityUpdate,
   [actions.D.MERGE_ENTITIES]: handleMergeEntities,
   [actions.D.MERGE_FILTERS]: handleMergeFilters,
   [actions.D.SET_FILTERS]: handleSetFilters,

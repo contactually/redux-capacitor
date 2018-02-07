@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`entities.sagas.apiRequest normalizeResponse do 1`] = `
+exports[`utils normalizeResponse do 1`] = `
 Object {
   "data": Object {
     "buckets": Array [

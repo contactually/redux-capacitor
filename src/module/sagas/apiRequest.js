@@ -1,8 +1,7 @@
 import * as _ from 'lodash'
 import { call, put } from 'redux-saga/effects'
-import { normalize } from 'normalizr'
 
-import { mergeKey } from '../utils'
+import { mergeKey, normalizeResponse } from '../utils'
 
 import actions from '../actions'
 import EntitiesConfig from '../../Config'
@@ -12,47 +11,6 @@ const DUMMY_ERROR_RESPONSE = {
   errors: [
     'An unexpected error occurred.'
   ]
-}
-
-/**
- * Take a response and normalize the response data (if applicable).
- *
- * @param  {[type]} givenResponse [description]
- * @param  {[type]} schemaType    [description]
- * @return {[type]}               [description]
- */
-const normalizeResponse = (givenResponse, schemaType) => {
-  const { data, ...response } = givenResponse
-
-  // If the response has no data key, No data needs to be merged,
-  // so return an empty map.
-  // TODO: For consistency this should be wrapped as an object, but there are
-  // things that depend on it being unwrapped. Leaving as-is for now.
-  if (_.isNil(data)) return response
-
-  // Some resource actions return a 'job' identifier, so we filter those
-  // out for now.
-  if (!_.isArrayLike(data) && _.startsWith(data.id, 'job_')) return { response }
-
-  const schema = _.isArrayLike(data)
-    ? [EntitiesConfig.schemas[schemaType]]
-    : EntitiesConfig.schemas[schemaType]
-
-  const cleanData = mergeKey(data, 'extraData')
-
-  const { entities, result } = normalize(
-    cleanData,
-    schema
-  )
-
-  return {
-    response,
-    ids: result,
-    entities,
-    // @todo: Ideally don't pass back 'data'. Needed currently for compatibility
-    // with entities 'Collection' class.
-    data: cleanData
-  }
 }
 
 /**
@@ -119,7 +77,3 @@ function* apiRequest (payload) {
 }
 
 export default apiRequest
-
-export {
-  normalizeResponse
-}

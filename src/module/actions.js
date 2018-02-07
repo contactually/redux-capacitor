@@ -16,6 +16,7 @@ export default {
     ...createDeltaAction(MODULE_NAME, 'ADD_ACTIVE_REQUEST'),
     ...createDeltaAction(MODULE_NAME, 'DELETE_ACTIVE_REQUEST'),
     ...createDeltaAction(MODULE_NAME, 'MERGE_ENTITIES'),
+    ...createDeltaAction(MODULE_NAME, 'PUSH_ENTITY_UPDATE'),
     ...createDeltaAction(MODULE_NAME, 'MERGE_FILTERS'),
     ...createDeltaAction(MODULE_NAME, 'SET_FILTERS'),
     ...createDeltaAction(MODULE_NAME, 'MERGE_CONTAINER_DATA'),
