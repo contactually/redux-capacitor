@@ -1,3 +1,4 @@
+<img src='https://raw.githubusercontent.com/contactually/redux-capacitor/master/logo.png' alt='Redux-Capacitor Logo' width='300'>
 # Redux Capacitor
 [![npm version](https://badge.fury.io/js/redux-capacitor.svg)](https://badge.fury.io/js/redux-capacitor)
 [![travis status](https://api.travis-ci.org/contactually/redux-capacitor.svg?branch=master)](https://travis-ci.org/contactually/redux-capacitor)
