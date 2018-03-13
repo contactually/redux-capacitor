@@ -17,6 +17,14 @@ For example, if I make a request to `/contacts?status=strong&q=hi`, the cache ke
 
 - `tolerance` the amount of time (in ms) before a request goes 'stale', and its cache is invalidated.
 This globally defaults to 5000ms (5s) when not explicitly set.
+- `responseStrategy` the way in which a performAction's response will be applied to the store. There are 5 strategies
+that can be applied, `['append', 'prepend', 'ignore', 'replace', 'subtract']`.
+  - `'append'` applies the response ids to the store **after** the existing ids in the store.
+  - `'prepend'` applies the response ids to the store **before** the existing ids in the store.
+  - `'ignore'` returns with an empty object, this also happens when there are no ids returned in the response.
+  - `'replace'` applies the response ids to the store **without** the formerly existing ids in the store. This is also
+  the default responseStrategy if none is explictly set.
+  - `'subtract'` removes the response ids from the existing ids in the store.
 
 ##
 
