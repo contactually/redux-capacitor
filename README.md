@@ -9,11 +9,15 @@
 yarn add redux-capacitor
 ```
 
+## Documentation
+
+### Wiki
+[Read documentation on the wiki](https://github.com/contactually/redux-capacitor/wiki)
+
 ### Example application
 For code snippets and example app structure: [Demo Redux Capacitor](https://github.com/contactually/demo-redux-capacitor)
 
-## Documentation
-
+### Other documentation
 - [Testing](/docs/testing.md)
 - [Internals](/docs/internals.md)
 
