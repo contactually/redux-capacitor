@@ -9,6 +9,13 @@ git diff-index -p --cached --diff-filter=ACMRTUXB -G"${FORBIDDEN}" HEAD | \
   grep "^+[^+]" | \
   GREP_COLOR='37;41' grep --color -E $FORBIDDEN && echo "\nError: Found some debug-looking code. Please remove it before committing (use \"git commit --no-verify...\" to skip).\n" && exit 1
 
+# Run ESLint against changed javascript files
+ESLINT='./node_modules/.bin/eslint'
+CHANGED_JAVASCRIPT_FILES=`git diff --cached --diff-filter=ACMRTUXB --name-only | grep '\.js$'`
+if [[ $CHANGED_JAVASCRIPT_FILES ]] && which $ESLINT && ! $ESLINT $CHANGED_JAVASCRIPT_FILES; then
+  echo "\n[■_■] ESLint is not happy. Please clean things up before committing (or use \"git commit --no-verify...\" to skip).\n" && exit 1
+fi
+
 yarn test -o
 
 exit 0
