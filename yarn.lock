@@ -10,9 +10,9 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
-"@types/lodash.flow@3.5.3":
-  version "3.5.3"
-  resolved "https://registry.yarnpkg.com/@types/lodash.flow/-/lodash.flow-3.5.3.tgz#e17fcfbc805d76f6f9e7e1f5a9f6d902d87f6f1f"
+"@types/lodash.flow@3.5.4":
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/@types/lodash.flow/-/lodash.flow-3.5.4.tgz#b10945f440cbbcc1827bc1577241c3f3d6502731"
   dependencies:
     "@types/lodash" "*"
 
