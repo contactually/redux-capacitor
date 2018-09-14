@@ -32,7 +32,7 @@
     "babel-preset-stage-0": "6.24.1",
     "enzyme": "3.2.0",
     "enzyme-adapter-react-16": "1.1.1",
-    "flow-bin": "0.54.1",
+    "flow-bin": "0.81.0",
     "jest": "22.0.6",
     "raf": "3.4.0",
     "react": "16.2.0",
