@@ -59,9 +59,10 @@ const containerPropTypes = {
 }
 
 const initializeContainer = (props, config) => {
+  const scope = _.defaultTo(props.scope, config.scope)
   props.initialize({
     filters: _.merge({ page: 1 }, config.defaultFilters, props.defaultFilters),
-    scope: _.defaultTo(props.scope, config.scope)
+    scope
   })
 
   const autoload = config.preventFetch || config.preventSingletonFetch
@@ -69,7 +70,7 @@ const initializeContainer = (props, config) => {
     : _.defaultTo(props.autoload, config.autoload)
 
   if (_.isUndefined(props.ids) && autoload !== false) {
-    props.performAction({ action: 'fetch' })
+    props.performAction({ action: 'fetch', scope })
   }
 }
 
