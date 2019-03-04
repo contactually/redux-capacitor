@@ -17,7 +17,7 @@
     "publish:local": "yarn build && cd ./lib && yalc publish && yalc update"
   },
   "devDependencies": {
-    "@types/lodash.flow": "3.5.3",
+    "@types/lodash.flow": "3.5.6",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-jest": "22.0.6",
