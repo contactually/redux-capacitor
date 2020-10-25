@@ -35,9 +35,9 @@
     "flow-bin": "0.54.1",
     "jest": "22.0.6",
     "raf": "3.4.0",
-    "react": "16.2.0",
+    "react": "16.14.0",
     "react-dom": "16.2.0",
-    "react-test-renderer": "16.2.0",
+    "react-test-renderer": "16.14.0",
     "webpack": "3.10.0"
   },
   "dependencies": {
