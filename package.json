@@ -38,7 +38,7 @@
     "react": "16.2.0",
     "react-dom": "16.2.0",
     "react-test-renderer": "16.2.0",
-    "webpack": "3.10.0"
+    "webpack": "5.21.2"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
